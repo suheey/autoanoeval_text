@@ -15,7 +15,7 @@ from pyod.models.mcd import MCD
 from pyod.models.loda import LODA
 from pyod.models.cblof import CBLOF
 
-from metrics_calculator import calculate_fdr
+from evaluation.metrics import calculate_fdr
 
 def get_default_models():
     """

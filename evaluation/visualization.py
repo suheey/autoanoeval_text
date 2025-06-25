@@ -4,11 +4,13 @@ import matplotlib.pyplot as plt
 import os
 
 def convert_validation_labels(validation_types):
-    """검증 타입을 표시용 레이블로 변환"""
+    """검증 타입을 표시용 레이블로 변환 (LLM 지원)"""
     display_labels = []
     for vtype in validation_types:
         if vtype == 'real_validation':
             display_labels.append('GT Real Anomaly')
+        elif vtype == 'llm_patterns':  # LLM 패턴 추가
+            display_labels.append('LLM Patterns')
         elif vtype.startswith('synthetic_'):
             anomaly_type = vtype.replace('synthetic_', '').replace('_validation', '')
             display_labels.append(f'Synthetic {anomaly_type.capitalize()}')
@@ -16,11 +18,35 @@ def convert_validation_labels(validation_types):
             display_labels.append(vtype.replace('_', ' ').title())
     return display_labels
 
+def get_validation_colors():
+    """검증 타입별 색상 매핑 (LLM 포함)"""
+    return {
+        'real_validation': 'red', 
+        'llm_patterns': 'darkviolet',  # LLM용 색상 추가
+        'synthetic_local_validation': 'blue', 
+        'synthetic_cluster_validation': 'green', 
+        'synthetic_global_validation': 'purple', 
+        'synthetic_discrepancy_validation': 'orange',
+        'synthetic_contextual_validation': 'brown'
+    }
+
+def get_validation_markers():
+    """검증 타입별 마커 매핑 (LLM 포함)"""
+    return {
+        'real_validation': 'o', 
+        'llm_patterns': 'X',  # LLM용 마커 추가
+        'synthetic_local_validation': '^', 
+        'synthetic_cluster_validation': 's', 
+        'synthetic_global_validation': 'D', 
+        'synthetic_discrepancy_validation': '*',
+        'synthetic_contextual_validation': 'P'
+    }
+
 def plot_core_performance_metrics(evaluation_metrics, best_models, results_dir):
     """
-    핵심 성능 메트릭들 시각화
-    MSE: 5개 방법 모두 (val_auc vs test_auc 차이)
-    나머지: synthetic 4개만 (real_validation과 비교)
+    핵심 성능 메트릭들 시각화 (LLM 지원)
+    MSE: 모든 방법 (val_auc vs test_auc 차이)
+    나머지: real_validation을 제외한 나머지 (real_validation과 비교)
     """
     if not evaluation_metrics and not best_models:
         print("⚠️ 평가 메트릭이 없어 시각화를 건너뜁니다.")
@@ -30,7 +56,7 @@ def plot_core_performance_metrics(evaluation_metrics, best_models, results_dir):
     fig, axes = plt.subplots(2, 2, figsize=(14, 10))
     axes = axes.flatten()
     
-    # 1. MSE (Best Model) - 5개 방법 모두
+    # 1. MSE (Best Model) - 모든 방법
     if best_models:
         validation_types_all = list(best_models.keys())
         display_labels_all = convert_validation_labels(validation_types_all)
@@ -59,7 +85,7 @@ def plot_core_performance_metrics(evaluation_metrics, best_models, results_dir):
                     transform=axes[0].transAxes, fontsize=12)
         axes[0].set_title('MSE (Val AUC - Test AUC)', fontsize=13, fontweight='bold')
     
-    # 2-4. 나머지 메트릭들 - Synthetic 4개만
+    # 2-4. 나머지 메트릭들 - real_validation 제외
     if evaluation_metrics:
         validation_types_syn = list(evaluation_metrics.keys())
         display_labels_syn = convert_validation_labels(validation_types_syn)
@@ -123,7 +149,7 @@ def plot_core_performance_metrics(evaluation_metrics, best_models, results_dir):
             axes[idx].text(0.5, 0.5, 'No Data', ha='center', va='center', 
                           transform=axes[idx].transAxes, fontsize=12)
     
-    plt.suptitle('Synthetic Validation Performance Metrics', 
+    plt.suptitle('Synthetic Validation Performance Metrics (Including LLM Patterns)', 
                  fontsize=15, fontweight='bold', y=0.98)
     plt.tight_layout()
     
@@ -135,8 +161,7 @@ def plot_core_performance_metrics(evaluation_metrics, best_models, results_dir):
 
 def plot_best_model_test_performance(best_models, results_dir):
     """
-    각 검증 방식별 최고 성능 모델의 Validation vs Test 성능 비교
-    각 x축마다 2개의 막대: Validation AUC vs Test AUC (performance drop 확인용)
+    각 검증 방식별 최고 성능 모델의 Validation vs Test 성능 비교 (LLM 포함)
     """
     if not best_models:
         print("⚠️ Best 모델 정보가 없어 시각화를 건너뜁니다.")
@@ -152,7 +177,7 @@ def plot_best_model_test_performance(best_models, results_dir):
     test_aucs = [info['test_auc'] for info in best_models.values()]
     val_aps = [info['val_ap'] for info in best_models.values()]
     test_aps = [info['test_ap'] for info in best_models.values()]
-    val_fdrs = [info.get('val_fdr', 0) for info in best_models.values()]  # Validation FDR 추가
+    val_fdrs = [info.get('val_fdr', 0) for info in best_models.values()]
     test_fdrs = [info.get('test_fdr', 0) for info in best_models.values()]
     
     # 1x3 서브플롯
@@ -160,7 +185,7 @@ def plot_best_model_test_performance(best_models, results_dir):
     
     # x축 위치 설정 (각 방법마다 2개 막대)
     x = np.arange(len(validation_types))
-    width = 0.35  # 막대 너비
+    width = 0.35
     
     # AUC 비교 (Validation vs Test)
     bars1_val = axes[0].bar(x - width/2, val_aucs, width, label='Validation AUC', 
@@ -175,7 +200,7 @@ def plot_best_model_test_performance(best_models, results_dir):
     axes[0].legend()
     axes[0].grid(True, alpha=0.3, linestyle=':')
     
-    # AP 비교 (Validation vs Test)
+    # AP 비교
     bars2_val = axes[1].bar(x - width/2, val_aps, width, label='Validation AP', 
                            color='lightgreen', alpha=0.8, edgecolor='black')
     bars2_test = axes[1].bar(x + width/2, test_aps, width, label='Test AP', 
@@ -188,7 +213,7 @@ def plot_best_model_test_performance(best_models, results_dir):
     axes[1].legend()
     axes[1].grid(True, alpha=0.3, linestyle=':')
     
-    # Test FDR (2개 막대: Validation FDR vs Test FDR)
+    # FDR 비교
     bars3_val = axes[2].bar(x - width/2, val_fdrs, width, label='Validation FDR', 
                            color='lightcoral', alpha=0.8, edgecolor='black')
     bars3_test = axes[2].bar(x + width/2, test_fdrs, width, label='Test FDR', 
@@ -204,7 +229,6 @@ def plot_best_model_test_performance(best_models, results_dir):
     axes[2].set_ylim(0, max_fdr * 1.2)
     
     # 수치 표시
-    # AUC 차트
     for i, (val_bar, test_bar, val_val, test_val, name) in enumerate(zip(bars1_val, bars1_test, val_aucs, test_aucs, model_names)):
         # Validation AUC 수치
         axes[0].text(val_bar.get_x() + val_bar.get_width()/2., val_bar.get_height() + 0.01,
@@ -237,7 +261,7 @@ def plot_best_model_test_performance(best_models, results_dir):
         axes[2].text(i, -max_fdr * 0.1,
                     model_names[i], ha='center', va='top', fontsize=9, fontweight='bold', rotation=0)
     
-    plt.suptitle('🔍 Best Model Performance: Validation vs Test (Performance Drop Analysis)', 
+    plt.suptitle('🔍 Best Model Performance: Validation vs Test (Performance Drop Analysis, Including LLM Patterns)', 
                  fontsize=16, fontweight='bold', y=0.98)
     plt.tight_layout()
     
@@ -245,37 +269,21 @@ def plot_best_model_test_performance(best_models, results_dir):
     filename = os.path.join(results_dir, 'best_model_test_performance.png')
     plt.savefig(filename, dpi=300, bbox_inches='tight')
     plt.close()
-    print(f"🏆 최고 모델 성능 비교 시각화 (Performance Drop)가 {filename}에 저장되었습니다")
+    print(f"🏆 최고 모델 성능 비교 시각화가 {filename}에 저장되었습니다")
 
 def plot_validation_test_correlation(summary_df, results_dir):
     """
-    검증 성능과 테스트 성능 간의 상관관계 분석 
-    GT 강조, 모델 이름 표기
+    검증 성능과 테스트 성능 간의 상관관계 분석 (LLM 포함)
     """
     if len(summary_df) == 0:
         print("⚠️ 요약 데이터가 없어 상관관계 시각화를 건너뜁니다.")
         return
     
     validation_types = summary_df['validation_type'].unique()
+    colors = get_validation_colors()
+    markers = get_validation_markers()
     
-    plt.figure(figsize=(14, 10))
-    
-    # 색상 및 마커 설정
-    colors = {
-        'real_validation': 'red', 
-        'synthetic_local_validation': 'blue', 
-        'synthetic_cluster_validation': 'green', 
-        'synthetic_global_validation': 'purple', 
-        'synthetic_discrepancy_validation': 'orange'
-    }
-    
-    markers = {
-        'real_validation': 'o', 
-        'synthetic_local_validation': '^', 
-        'synthetic_cluster_validation': 's', 
-        'synthetic_global_validation': 'D', 
-        'synthetic_discrepancy_validation': '*'
-    }
+    plt.figure(figsize=(16, 10))
     
     for val_type in validation_types:
         df_subset = summary_df[summary_df['validation_type'] == val_type]
@@ -291,6 +299,11 @@ def plot_validation_test_correlation(summary_df, results_dir):
                 alpha = 1.0
                 size = 120
                 zorder = 10
+            elif val_type == 'llm_patterns':
+                label = 'LLM Patterns'
+                alpha = 1.0
+                size = 100
+                zorder = 9
             else:
                 anomaly_type = val_type.replace('synthetic_', '').replace('_validation', '')
                 label = f'Synthetic {anomaly_type.capitalize()}'
@@ -303,22 +316,22 @@ def plot_validation_test_correlation(summary_df, results_dir):
                                 alpha=alpha, label=label, color=color, marker=marker, s=size, 
                                 edgecolors='black', linewidths=0.5, zorder=zorder)
             
-            # 각 점에 모델 이름(PCA, IForest 등) 표기
+            # 각 점에 모델 이름 표기
             for _, row in df_subset.iterrows():
                 plt.annotate(
-                    row['model'],  # 모델명: PCA, IForest, KNN, LOF 등
+                    row['model'],
                     (row['val_auc'], row['test_auc']),
-                    xytext=(3, 3),  # 점에서 3픽셀 떨어진 위치 (더 가깝게)
+                    xytext=(3, 3),
                     textcoords='offset points',
                     fontsize=7,
                     fontweight='bold',
-                    color='black',  # 검은색 텍스트로 가독성 향상
+                    color='black',
                     alpha=0.8,
                     bbox=dict(
                         boxstyle='round,pad=0.1', 
-                        facecolor='white',      # 흰색 배경
+                        facecolor='white',
                         alpha=0.7, 
-                        edgecolor=color,        # validation type 색상으로 테두리
+                        edgecolor=color,
                         linewidth=0.5
                     ),
                     ha='left',
@@ -333,7 +346,7 @@ def plot_validation_test_correlation(summary_df, results_dir):
     
     plt.xlabel('Validation AUC', fontsize=12, fontweight='bold')
     plt.ylabel('Test AUC', fontsize=12, fontweight='bold')
-    plt.title('Validation vs Test Performance Correlation (with Model Names)', 
+    plt.title('Validation vs Test Performance Correlation (Including LLM Patterns)', 
               fontsize=15, fontweight='bold')
     plt.legend(fontsize=10, loc='lower right', framealpha=0.9)
     plt.grid(True, linestyle=':', alpha=0.7)
@@ -343,19 +356,90 @@ def plot_validation_test_correlation(summary_df, results_dir):
     filename = os.path.join(results_dir, 'validation_test_correlation.png')
     plt.savefig(filename, dpi=300, bbox_inches='tight')
     plt.close()
-    print(f"검증-테스트 상관관계 그래프가 {filename}에 저장되었습니다")
+    print(f"📊 검증-테스트 상관관계 그래프가 {filename}에 저장되었습니다")
+
+def plot_llm_vs_statistical_comparison(best_models, evaluation_metrics, results_dir):
+    """
+    LLM 패턴 vs 통계적 방법들 성능 비교 시각화
+    """
+    if 'llm_patterns' not in best_models:
+        print("⚠️ LLM 패턴 결과가 없어 비교 시각화를 건너뜁니다.")
+        return
+    
+    # LLM vs 통계적 방법들 분리
+    llm_info = best_models['llm_patterns']
+    statistical_methods = {k: v for k, v in best_models.items() 
+                          if k.startswith('synthetic_') and k != 'llm_patterns'}
+    
+    if not statistical_methods:
+        print("⚠️ 통계적 방법 결과가 없어 비교 시각화를 건너뜁니다.")
+        return
+    
+    fig, axes = plt.subplots(1, 2, figsize=(16, 8))
+    
+    # 1. Test AUC 비교
+    methods = ['LLM Patterns'] + [convert_validation_labels([k])[0] for k in statistical_methods.keys()]
+    test_aucs = [llm_info['test_auc']] + [v['test_auc'] for v in statistical_methods.values()]
+    
+    colors = ['darkviolet'] + [get_validation_colors().get(k, 'gray') for k in statistical_methods.keys()]
+    
+    bars = axes[0].bar(methods, test_aucs, color=colors, alpha=0.8, edgecolor='black')
+    axes[0].set_title('🏆 Test AUC: LLM vs Statistical Methods', fontsize=13, fontweight='bold')
+    axes[0].set_ylabel('Test AUC', fontsize=11)
+    axes[0].tick_params(axis='x', rotation=45)
+    axes[0].grid(True, alpha=0.3, linestyle=':')
+    
+    # 수치 표시
+    for bar, value in zip(bars, test_aucs):
+        height = bar.get_height()
+        axes[0].text(bar.get_x() + bar.get_width()/2., height + 0.01,
+                    f'{value:.3f}', ha='center', va='bottom', 
+                    fontsize=9, fontweight='bold')
+    
+    # 2. Rank Correlation 비교 (evaluation_metrics에서)
+    if evaluation_metrics and 'llm_patterns' in evaluation_metrics:
+        llm_corr = evaluation_metrics['llm_patterns']['rank_correlation']
+        stat_methods_eval = {k: v for k, v in evaluation_metrics.items() 
+                           if k.startswith('synthetic_') and k != 'llm_patterns'}
+        
+        methods_corr = ['LLM Patterns'] + [convert_validation_labels([k])[0] for k in stat_methods_eval.keys()]
+        correlations = [llm_corr] + [v['rank_correlation'] for v in stat_methods_eval.values()]
+        
+        colors_corr = ['darkviolet'] + [get_validation_colors().get(k, 'gray') for k in stat_methods_eval.keys()]
+        
+        bars2 = axes[1].bar(methods_corr, correlations, color=colors_corr, alpha=0.8, edgecolor='black')
+        axes[1].set_title('📊 Rank Correlation with GT: LLM vs Statistical', fontsize=13, fontweight='bold')
+        axes[1].set_ylabel('Rank Correlation', fontsize=11)
+        axes[1].tick_params(axis='x', rotation=45)
+        axes[1].grid(True, alpha=0.3, linestyle=':')
+        axes[1].set_ylim(0, 1.1)
+        
+        # 수치 표시
+        for bar, value in zip(bars2, correlations):
+            height = bar.get_height()
+            axes[1].text(bar.get_x() + bar.get_width()/2., height + 0.02,
+                        f'{value:.3f}', ha='center', va='bottom', 
+                        fontsize=9, fontweight='bold')
+    else:
+        axes[1].text(0.5, 0.5, 'No Correlation Data', ha='center', va='center', 
+                    transform=axes[1].transAxes, fontsize=12)
+        axes[1].set_title('📊 Rank Correlation with GT', fontsize=13, fontweight='bold')
+    
+    plt.suptitle('🤖 LLM Patterns vs Statistical Methods Comparison', 
+                 fontsize=16, fontweight='bold', y=0.98)
+    plt.tight_layout()
+    
+    # 저장
+    filename = os.path.join(results_dir, 'llm_vs_statistical_comparison.png')
+    plt.savefig(filename, dpi=300, bbox_inches='tight')
+    plt.close()
+    print(f"🤖 LLM vs 통계적 방법 비교 시각화가 {filename}에 저장되었습니다")
 
 def create_experiment_visualizations(best_models, evaluation_metrics, summary_df, results_dir):
     """
-    실험의 모든 핵심 시각화를 생성
-    
-    Parameters:
-    - best_models: 검증 방식별 최고 성능 모델 정보 
-    - evaluation_metrics: 평가 메트릭 결과 
-    - summary_df: 전체 실험 결과 DataFrame
-    - results_dir: 결과 저장 디렉토리
+    실험의 모든 핵심 시각화를 생성 (LLM 지원)
     """
-    print(f"\n🎨 핵심 시각화 생성 중... ")
+    print(f"\n🎨 핵심 시각화 생성 중 (LLM 패턴 포함)...")
     
     # 1. 핵심 성능 메트릭 비교
     if evaluation_metrics or best_models:
@@ -363,21 +447,27 @@ def create_experiment_visualizations(best_models, evaluation_metrics, summary_df
     else:
         print("⚠️ 평가 메트릭이 없어 핵심 메트릭 시각화를 건너뜁니다.")
     
-    # 2. Best 모델 테스트 성능 비교 (기준선 없음)
+    # 2. Best 모델 테스트 성능 비교
     if best_models:
         plot_best_model_test_performance(best_models, results_dir)
     else:
         print("⚠️ Best 모델 정보가 없어 성능 비교 시각화를 건너뜁니다.")
     
-    # 3. 검증-테스트 상관관계 (GT 강조, 모델명 표기)
+    # 3. 검증-테스트 상관관계
     if len(summary_df) > 0:
         plot_validation_test_correlation(summary_df, results_dir)
     else:
         print("⚠️ 요약 데이터가 없어 상관관계 시각화를 건너뜁니다.")
     
-    print(f"✅ 모든 핵심 시각화 완료!")
+    # 4. LLM vs 통계적 방법 비교 (새로 추가)
+    if best_models and 'llm_patterns' in best_models:
+        plot_llm_vs_statistical_comparison(best_models, evaluation_metrics, results_dir)
+    
+    print(f"✅ 모든 핵심 시각화 완료 (LLM 패턴 포함)!")
     print(f"📁 시각화 파일들이 {results_dir}에 저장되었습니다")
     print(f"📊 생성된 파일:")
     print(f"   - core_performance_metrics.png")
     print(f"   - best_model_test_performance.png")
     print(f"   - validation_test_correlation.png")
+    if 'llm_patterns' in best_models:
+        print(f"   - llm_vs_statistical_comparison.png")

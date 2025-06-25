@@ -1,10 +1,10 @@
 import numpy as np
 from sklearn.mixture import GaussianMixture
+from .base_generator import BaseAnomalyGenerator
 
-class SimpleDataGenerator:
+class StatisticalAnomalyGenerator(BaseAnomalyGenerator):
     def __init__(self, seed=42):
-        self.seed = seed
-        np.random.seed(seed)
+        super().__init__(seed)
         print("🐌 CPU 모드로 데이터 생성기 초기화")
     
     def generate_realistic_synthetic(self, X, y, realistic_synthetic_mode, alpha=5, percentage=0.1):
