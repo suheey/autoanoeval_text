@@ -1,0 +1,397 @@
+
+📊 데이터셋 로드: 15_Hepatitis
+📥 CSV 데이터셋 로드: /lab-di/nfsdata/home/suhee.yoon/autoanoeval/data/adbench_column/15_Hepatitis.csv
+📊 로드된 데이터 형태: (80, 21)
+📈 숫자 컬럼: 6개, 문자열 컬럼: 14개
+   🔤 SEX: 2개 고유값 → 정수 인코딩
+   🔤 STEROID: 2개 고유값 → 정수 인코딩
+   🔤 ANTIVIRALS: 2개 고유값 → 정수 인코딩
+   🔤 FATIGUE: 2개 고유값 → 정수 인코딩
+   🔤 MALAISE: 2개 고유값 → 정수 인코딩
+   🔤 ANOREXIA: 2개 고유값 → 정수 인코딩
+   🔤 LIVER BIG: 2개 고유값 → 정수 인코딩
+   🔤 LIVER FIRM: 2개 고유값 → 정수 인코딩
+   🔤 SPLEEN PALPABLE: 2개 고유값 → 정수 인코딩
+   🔤 SPIDERS: 2개 고유값 → 정수 인코딩
+   🔤 ASCITES: 2개 고유값 → 정수 인코딩
+   🔤 VARICES: 2개 고유값 → 정수 인코딩
+   🔤 HISTOLOGY: 2개 고유값 → 정수 인코딩
+   🔤 prompt: 80개 고유값 → 정수 인코딩
+📊 최종 feature 차원: 6 (숫자) + 14 (문자열) = 20
+🏷️ 레이블 분포: 정상 67개, 이상 13개
+
+🔍 GPU 가속 요구사항 분석:
+   📊 데이터 크기: 0.0 MB (80 x 20)
+   📊 정상/이상: 67 / 13
+   ❌ GPU 사용 불가 (CuPy 미설치)
+📊 원본 데이터: (80, 20)
+📊 클래스 분포 - 정상: 67, 이상: 13
+
+📋 데이터셋 분할 완료:
+   Train (정상만): (40, 20)
+   Real Validation: (16, 20) (정상: 13, 이상: 3)
+   Test: (24, 20) (정상: 14, 이상: 10)
+
+🧪 Synthetic Anomaly 검증 세트 생성... (CPU)
+🐌 CPU 모드로 데이터 생성기 초기화
+   🔬 local 유형 생성 중...
+
+🔬 local 유형의 이상치 생성 중... (CPU)
+생성할 이상치 개수: 3
+🔬 local 모드로 합성 데이터 생성 (CPU)
+최적 GMM 컴포넌트 수: 1
+🔥 GPU 가속 Local 이상치 생성...
+✅ local 이상치 생성 완료: 3개
+📊 이상치 차원: (3, 20)
+      ✅ local: (16, 20) (정상: 13, 이상: 3) [0.20s]
+   🔬 cluster 유형 생성 중...
+
+🔬 cluster 유형의 이상치 생성 중... (CPU)
+생성할 이상치 개수: 3
+🔬 cluster 모드로 합성 데이터 생성 (CPU)
+최적 GMM 컴포넌트 수: 1
+🔥 GPU 가속 Cluster 이상치 생성...
+✅ cluster 이상치 생성 완료: 3개
+📊 이상치 차원: (3, 20)
+      ✅ cluster: (16, 20) (정상: 13, 이상: 3) [0.02s]
+   🔬 global 유형 생성 중...
+
+🔬 global 유형의 이상치 생성 중... (CPU)
+생성할 이상치 개수: 3
+🔬 global 모드로 합성 데이터 생성 (CPU)
+최적 GMM 컴포넌트 수: 1
+🔥 GPU 가속 Global 이상치 생성...
+✅ global 이상치 생성 완료: 3개
+📊 이상치 차원: (3, 20)
+      ✅ global: (16, 20) (정상: 13, 이상: 3) [0.01s]
+   🔬 discrepancy 유형 생성 중...
+
+🔬 discrepancy 유형의 이상치 생성 중... (CPU)
+생성할 이상치 개수: 3
+✅ discrepancy 이상치 생성 완료: 3개
+📊 이상치 차원: (3, 20)
+      ✅ discrepancy: (16, 20) (정상: 13, 이상: 3) [0.00s]
+
+⚡ 생성 시간 요약 (CPU):
+   local       :   0.20s
+   cluster     :   0.02s
+   global      :   0.01s
+   discrepancy :   0.00s
+   Total       :   0.23s
+   Average     :   0.06s
+
+🚀 모델 선택 실험 실행...
+
+============================================================
+🔬 모델 선택 실험 실행
+============================================================
+
+📊 데이터 준비 및 표준화...
+✅ 평가 모델: 12개
+📋 모델 목록: ['ABOD', 'KNN', 'LOF', 'COF', 'IForest', 'OCSVM', 'COPOD', 'PCA', 'HBOS', 'MCD', 'LODA', 'CBLOF']
+
+🎯 GT Real Anomaly Validation (기준선)
+
+ABOD 모델 평가 중...
+ABOD - Val AUC: 0.7949, Val AP: 0.6556, Val FDR: 0.5000, Test AUC: 0.9500, Test AP: 0.9351, Test FDR: 0.0000, Time: 1.34s
+
+KNN 모델 평가 중...
+KNN - Val AUC: 0.8205, Val AP: 0.6667, Val FDR: 0.5000, Test AUC: 0.9571, Test AP: 0.9354, Test FDR: 0.0000, Time: 0.02s
+
+LOF 모델 평가 중...
+LOF - Val AUC: 0.7692, Val AP: 0.6465, Val FDR: 0.5000, Test AUC: 0.9643, Test AP: 0.9430, Test FDR: 0.0000, Time: 0.01s
+
+COF 모델 평가 중...
+COF 모델 평가 중 오류 발생: index 16 is out of bounds for axis 0 with size 16
+
+IForest 모델 평가 중...
+IForest - Val AUC: 0.7949, Val AP: 0.6556, Val FDR: 0.3333, Test AUC: 0.9143, Test AP: 0.9231, Test FDR: 0.0000, Time: 0.11s
+
+OCSVM 모델 평가 중...
+OCSVM - Val AUC: 0.7436, Val AP: 0.6389, Val FDR: 0.7143, Test AUC: 0.8786, Test AP: 0.8334, Test FDR: 0.1429, Time: 0.01s
+
+COPOD 모델 평가 중...
+COPOD - Val AUC: 0.7949, Val AP: 0.6556, Val FDR: 0.5000, Test AUC: 0.9143, Test AP: 0.8939, Test FDR: 0.0000, Time: 0.11s
+
+PCA 모델 평가 중...
+PCA - Val AUC: 0.7436, Val AP: 0.6389, Val FDR: 0.3333, Test AUC: 0.9214, Test AP: 0.9028, Test FDR: 0.0000, Time: 0.01s
+
+HBOS 모델 평가 중...
+HBOS - Val AUC: 0.8205, Val AP: 0.5139, Val FDR: 0.3333, Test AUC: 0.9429, Test AP: 0.9443, Test FDR: 0.0000, Time: 1.46s
+
+MCD 모델 평가 중...
+MCD - Val AUC: 0.6410, Val AP: 0.2897, Val FDR: 0.7143, Test AUC: 0.9000, Test AP: 0.8685, Test FDR: 0.1667, Time: 0.04s
+
+LODA 모델 평가 중...
+LODA - Val AUC: 0.6154, Val AP: 0.2778, Val FDR: 1.0000, Test AUC: 0.8286, Test AP: 0.7136, Test FDR: 0.2500, Time: 0.02s
+
+CBLOF 모델 평가 중...
+/usr/local/lib/python3.8/dist-packages/sklearn/cluster/_kmeans.py:1416: FutureWarning: The default value of `n_init` will change from 10 to 'auto' in 1.4. Set the value of `n_init` explicitly to suppress the warning
+  super()._check_params_vs_input(X, default_n_init=10)
+CBLOF - Val AUC: 0.8462, Val AP: 0.6429, Val FDR: 0.6667, Test AUC: 0.8929, Test AP: 0.8739, Test FDR: 0.2222, Time: 0.97s
+Best 모델: CBLOF
+검증 AUC: 0.8462, 테스트 AUC: 0.8929
+검증 AP: 0.6429, 테스트 AP: 0.8739
+테스트 FDR: 0.2222
+🏆 Best: CBLOF (Test AUC: 0.8929)
+
+🧪 Synthetic Anomaly Validations
+
+--- Local Synthetic ---
+
+ABOD 모델 평가 중...
+ABOD - Val AUC: 1.0000, Val AP: 1.0000, Val FDR: 0.2500, Test AUC: 0.9500, Test AP: 0.9351, Test FDR: 0.0000, Time: 0.05s
+
+KNN 모델 평가 중...
+KNN - Val AUC: 1.0000, Val AP: 1.0000, Val FDR: 0.4000, Test AUC: 0.9571, Test AP: 0.9354, Test FDR: 0.0000, Time: 0.01s
+
+LOF 모델 평가 중...
+LOF - Val AUC: 1.0000, Val AP: 1.0000, Val FDR: 0.4000, Test AUC: 0.9643, Test AP: 0.9430, Test FDR: 0.0000, Time: 0.01s
+
+COF 모델 평가 중...
+COF 모델 평가 중 오류 발생: index 16 is out of bounds for axis 0 with size 16
+
+IForest 모델 평가 중...
+IForest - Val AUC: 1.0000, Val AP: 1.0000, Val FDR: 0.2500, Test AUC: 0.9143, Test AP: 0.9231, Test FDR: 0.0000, Time: 0.12s
+
+OCSVM 모델 평가 중...
+OCSVM - Val AUC: 1.0000, Val AP: 1.0000, Val FDR: 0.6250, Test AUC: 0.8786, Test AP: 0.8334, Test FDR: 0.1429, Time: 0.01s
+
+COPOD 모델 평가 중...
+COPOD - Val AUC: 1.0000, Val AP: 1.0000, Val FDR: 0.2500, Test AUC: 0.9143, Test AP: 0.8939, Test FDR: 0.0000, Time: 0.01s
+
+PCA 모델 평가 중...
+PCA - Val AUC: 1.0000, Val AP: 1.0000, Val FDR: 0.2500, Test AUC: 0.9214, Test AP: 0.9028, Test FDR: 0.0000, Time: 0.01s
+
+HBOS 모델 평가 중...
+HBOS - Val AUC: 1.0000, Val AP: 1.0000, Val FDR: 0.2500, Test AUC: 0.9429, Test AP: 0.9443, Test FDR: 0.0000, Time: 0.01s
+
+MCD 모델 평가 중...
+MCD - Val AUC: 0.8462, Val AP: 0.5000, Val FDR: 0.6250, Test AUC: 0.9000, Test AP: 0.8685, Test FDR: 0.1667, Time: 0.04s
+
+LODA 모델 평가 중...
+LODA - Val AUC: 0.9231, Val AP: 0.6389, Val FDR: 1.0000, Test AUC: 0.7286, Test AP: 0.6337, Test FDR: 0.3333, Time: 0.02s
+
+CBLOF 모델 평가 중...
+/usr/local/lib/python3.8/dist-packages/sklearn/cluster/_kmeans.py:1416: FutureWarning: The default value of `n_init` will change from 10 to 'auto' in 1.4. Set the value of `n_init` explicitly to suppress the warning
+  super()._check_params_vs_input(X, default_n_init=10)
+CBLOF - Val AUC: 1.0000, Val AP: 1.0000, Val FDR: 0.5714, Test AUC: 0.8929, Test AP: 0.8739, Test FDR: 0.2222, Time: 0.02s
+Best 모델: ABOD
+검증 AUC: 1.0000, 테스트 AUC: 0.9500
+검증 AP: 1.0000, 테스트 AP: 0.9351
+테스트 FDR: 0.0000
+🏆 Best: ABOD (Test AUC: 0.9500)
+
+--- Cluster Synthetic ---
+
+ABOD 모델 평가 중...
+ABOD - Val AUC: 1.0000, Val AP: 1.0000, Val FDR: 0.2500, Test AUC: 0.9500, Test AP: 0.9351, Test FDR: 0.0000, Time: 0.05s
+
+KNN 모델 평가 중...
+KNN - Val AUC: 1.0000, Val AP: 1.0000, Val FDR: 0.4000, Test AUC: 0.9571, Test AP: 0.9354, Test FDR: 0.0000, Time: 0.01s
+
+LOF 모델 평가 중...
+LOF - Val AUC: 1.0000, Val AP: 1.0000, Val FDR: 0.4000, Test AUC: 0.9643, Test AP: 0.9430, Test FDR: 0.0000, Time: 0.01s
+
+COF 모델 평가 중...
+COF 모델 평가 중 오류 발생: index 16 is out of bounds for axis 0 with size 16
+
+IForest 모델 평가 중...
+IForest - Val AUC: 0.9231, Val AP: 0.6389, Val FDR: 0.2500, Test AUC: 0.9143, Test AP: 0.9231, Test FDR: 0.0000, Time: 0.12s
+
+OCSVM 모델 평가 중...
+OCSVM - Val AUC: 1.0000, Val AP: 1.0000, Val FDR: 0.6250, Test AUC: 0.8786, Test AP: 0.8334, Test FDR: 0.1429, Time: 0.01s
+
+COPOD 모델 평가 중...
+COPOD - Val AUC: 1.0000, Val AP: 1.0000, Val FDR: 0.0000, Test AUC: 0.9143, Test AP: 0.8939, Test FDR: 0.0000, Time: 0.01s
+
+PCA 모델 평가 중...
+PCA - Val AUC: 1.0000, Val AP: 1.0000, Val FDR: 0.2500, Test AUC: 0.9214, Test AP: 0.9028, Test FDR: 0.0000, Time: 0.01s
+
+HBOS 모델 평가 중...
+HBOS - Val AUC: 1.0000, Val AP: 1.0000, Val FDR: 0.2500, Test AUC: 0.9429, Test AP: 0.9443, Test FDR: 0.0000, Time: 0.01s
+
+MCD 모델 평가 중...
+MCD - Val AUC: 1.0000, Val AP: 1.0000, Val FDR: 0.6250, Test AUC: 0.9000, Test AP: 0.8685, Test FDR: 0.1667, Time: 0.03s
+
+LODA 모델 평가 중...
+LODA - Val AUC: 0.0000, Val AP: 0.1308, Val FDR: 1.0000, Test AUC: 0.8571, Test AP: 0.8571, Test FDR: 0.0000, Time: 0.02s
+
+CBLOF 모델 평가 중...
+/usr/local/lib/python3.8/dist-packages/sklearn/cluster/_kmeans.py:1416: FutureWarning: The default value of `n_init` will change from 10 to 'auto' in 1.4. Set the value of `n_init` explicitly to suppress the warning
+  super()._check_params_vs_input(X, default_n_init=10)
+CBLOF - Val AUC: 1.0000, Val AP: 1.0000, Val FDR: 0.5714, Test AUC: 0.8929, Test AP: 0.8739, Test FDR: 0.2222, Time: 0.02s
+Best 모델: ABOD
+검증 AUC: 1.0000, 테스트 AUC: 0.9500
+검증 AP: 1.0000, 테스트 AP: 0.9351
+테스트 FDR: 0.0000
+🏆 Best: ABOD (Test AUC: 0.9500)
+
+--- Global Synthetic ---
+
+ABOD 모델 평가 중...
+ABOD - Val AUC: 0.9487, Val AP: 0.8056, Val FDR: 0.2500, Test AUC: 0.9500, Test AP: 0.9351, Test FDR: 0.0000, Time: 0.05s
+
+KNN 모델 평가 중...
+KNN - Val AUC: 0.9487, Val AP: 0.8056, Val FDR: 0.4000, Test AUC: 0.9571, Test AP: 0.9354, Test FDR: 0.0000, Time: 0.01s
+
+LOF 모델 평가 중...
+LOF - Val AUC: 0.9744, Val AP: 0.9167, Val FDR: 0.4000, Test AUC: 0.9643, Test AP: 0.9430, Test FDR: 0.0000, Time: 0.01s
+
+COF 모델 평가 중...
+COF 모델 평가 중 오류 발생: index 16 is out of bounds for axis 0 with size 16
+
+IForest 모델 평가 중...
+IForest - Val AUC: 1.0000, Val AP: 1.0000, Val FDR: 0.2500, Test AUC: 0.9143, Test AP: 0.9231, Test FDR: 0.0000, Time: 0.12s
+
+OCSVM 모델 평가 중...
+OCSVM - Val AUC: 0.9487, Val AP: 0.8056, Val FDR: 0.6250, Test AUC: 0.8786, Test AP: 0.8334, Test FDR: 0.1429, Time: 0.01s
+
+COPOD 모델 평가 중...
+COPOD - Val AUC: 1.0000, Val AP: 1.0000, Val FDR: 0.2500, Test AUC: 0.9143, Test AP: 0.8939, Test FDR: 0.0000, Time: 0.01s
+
+PCA 모델 평가 중...
+PCA - Val AUC: 0.9487, Val AP: 0.8056, Val FDR: 0.2500, Test AUC: 0.9214, Test AP: 0.9028, Test FDR: 0.0000, Time: 0.01s
+
+HBOS 모델 평가 중...
+HBOS - Val AUC: 1.0000, Val AP: 1.0000, Val FDR: 0.2500, Test AUC: 0.9429, Test AP: 0.9443, Test FDR: 0.0000, Time: 0.01s
+
+MCD 모델 평가 중...
+MCD - Val AUC: 1.0000, Val AP: 1.0000, Val FDR: 0.6250, Test AUC: 0.9000, Test AP: 0.8685, Test FDR: 0.1667, Time: 0.03s
+
+LODA 모델 평가 중...
+LODA - Val AUC: 1.0000, Val AP: 1.0000, Val FDR: 0.0000, Test AUC: 0.6571, Test AP: 0.6601, Test FDR: 0.2500, Time: 0.02s
+
+CBLOF 모델 평가 중...
+/usr/local/lib/python3.8/dist-packages/sklearn/cluster/_kmeans.py:1416: FutureWarning: The default value of `n_init` will change from 10 to 'auto' in 1.4. Set the value of `n_init` explicitly to suppress the warning
+  super()._check_params_vs_input(X, default_n_init=10)
+CBLOF - Val AUC: 0.8974, Val AP: 0.5889, Val FDR: 0.5714, Test AUC: 0.8929, Test AP: 0.8739, Test FDR: 0.2222, Time: 0.02s
+Best 모델: IForest
+검증 AUC: 1.0000, 테스트 AUC: 0.9143
+검증 AP: 1.0000, 테스트 AP: 0.9231
+테스트 FDR: 0.0000
+🏆 Best: IForest (Test AUC: 0.9143)
+
+--- Discrepancy Synthetic ---
+
+ABOD 모델 평가 중...
+ABOD - Val AUC: 0.5641, Val AP: 0.2761, Val FDR: 1.0000, Test AUC: 0.9500, Test AP: 0.9351, Test FDR: 0.0000, Time: 0.05s
+
+KNN 모델 평가 중...
+KNN - Val AUC: 0.5641, Val AP: 0.2508, Val FDR: 1.0000, Test AUC: 0.9571, Test AP: 0.9354, Test FDR: 0.0000, Time: 0.01s
+
+LOF 모델 평가 중...
+LOF - Val AUC: 0.4103, Val AP: 0.1991, Val FDR: 1.0000, Test AUC: 0.9643, Test AP: 0.9430, Test FDR: 0.0000, Time: 0.01s
+
+COF 모델 평가 중...
+COF 모델 평가 중 오류 발생: index 16 is out of bounds for axis 0 with size 16
+
+IForest 모델 평가 중...
+IForest - Val AUC: 0.4103, Val AP: 0.1976, Val FDR: 1.0000, Test AUC: 0.9143, Test AP: 0.9231, Test FDR: 0.0000, Time: 0.12s
+
+OCSVM 모델 평가 중...
+OCSVM - Val AUC: 0.5897, Val AP: 0.2778, Val FDR: 0.7143, Test AUC: 0.8786, Test AP: 0.8334, Test FDR: 0.1429, Time: 0.01s
+
+COPOD 모델 평가 중...
+COPOD - Val AUC: 1.0000, Val AP: 1.0000, Val FDR: 0.2500, Test AUC: 0.9143, Test AP: 0.8939, Test FDR: 0.0000, Time: 0.01s
+
+PCA 모델 평가 중...
+PCA - Val AUC: 0.5128, Val AP: 0.2407, Val FDR: 1.0000, Test AUC: 0.9214, Test AP: 0.9028, Test FDR: 0.0000, Time: 0.01s
+
+HBOS 모델 평가 중...
+HBOS - Val AUC: 1.0000, Val AP: 1.0000, Val FDR: 0.2500, Test AUC: 0.9429, Test AP: 0.9443, Test FDR: 0.0000, Time: 0.01s
+
+MCD 모델 평가 중...
+MCD - Val AUC: 0.1538, Val AP: 0.1483, Val FDR: 1.0000, Test AUC: 0.9000, Test AP: 0.8685, Test FDR: 0.1667, Time: 0.03s
+
+LODA 모델 평가 중...
+LODA - Val AUC: 0.3590, Val AP: 0.1884, Val FDR: 1.0000, Test AUC: 0.7643, Test AP: 0.7655, Test FDR: 0.2000, Time: 0.02s
+
+CBLOF 모델 평가 중...
+/usr/local/lib/python3.8/dist-packages/sklearn/cluster/_kmeans.py:1416: FutureWarning: The default value of `n_init` will change from 10 to 'auto' in 1.4. Set the value of `n_init` explicitly to suppress the warning
+  super()._check_params_vs_input(X, default_n_init=10)
+CBLOF - Val AUC: 0.6923, Val AP: 0.3194, Val FDR: 0.6667, Test AUC: 0.8929, Test AP: 0.8739, Test FDR: 0.2222, Time: 0.02s
+Best 모델: COPOD
+검증 AUC: 1.0000, 테스트 AUC: 0.9143
+검증 AP: 1.0000, 테스트 AP: 0.8939
+테스트 FDR: 0.0000
+🏆 Best: COPOD (Test AUC: 0.9143)
+
+📈 결과 분석 및 저장...
+Best 모델: CBLOF
+검증 AUC: 0.8462, 테스트 AUC: 0.8929
+검증 AP: 0.6429, 테스트 AP: 0.8739
+테스트 FDR: 0.2222
+Best 모델: ABOD
+검증 AUC: 1.0000, 테스트 AUC: 0.9500
+검증 AP: 1.0000, 테스트 AP: 0.9351
+테스트 FDR: 0.0000
+📊 local: Corr=0.670, Overlap=0.333
+Best 모델: ABOD
+검증 AUC: 1.0000, 테스트 AUC: 0.9500
+검증 AP: 1.0000, 테스트 AP: 0.9351
+테스트 FDR: 0.0000
+📊 cluster: Corr=0.342, Overlap=0.333
+Best 모델: IForest
+검증 AUC: 1.0000, 테스트 AUC: 0.9143
+검증 AP: 1.0000, 테스트 AP: 0.9231
+테스트 FDR: 0.0000
+📊 global: Corr=-0.340, Overlap=0.333
+Best 모델: COPOD
+검증 AUC: 1.0000, 테스트 AUC: 0.9143
+검증 AP: 1.0000, 테스트 AP: 0.8939
+테스트 FDR: 0.0000
+📊 discrepancy: Corr=0.696, Overlap=0.667
+💾 결과 파일 저장 완료
+Debug - best_models keys: ['real_validation', 'synthetic_local_validation', 'synthetic_cluster_validation', 'synthetic_global_validation', 'synthetic_discrepancy_validation']
+Debug - evaluation_metrics keys: ['synthetic_local_validation', 'synthetic_cluster_validation', 'synthetic_global_validation', 'synthetic_discrepancy_validation']
+
+🎨 핵심 시각화 생성 중... 
+📊 핵심 성능 메트릭 비교 시각화가 ./result_metric/15_Hepatitis_experiment_results_20250621_162651_cpu/core_performance_metrics.png에 저장되었습니다
+/lab-di/nfsdata/home/suhee.yoon/autoanoeval/ADBench/autoanoeval_text/visualization_utils.py:242: UserWarning: Glyph 127942 (\N{TROPHY}) missing from current font.
+  plt.tight_layout()
+/lab-di/nfsdata/home/suhee.yoon/autoanoeval/ADBench/autoanoeval_text/visualization_utils.py:242: UserWarning: Glyph 127919 (\N{DIRECT HIT}) missing from current font.
+  plt.tight_layout()
+/lab-di/nfsdata/home/suhee.yoon/autoanoeval/ADBench/autoanoeval_text/visualization_utils.py:242: UserWarning: Glyph 128201 (\N{CHART WITH DOWNWARDS TREND}) missing from current font.
+  plt.tight_layout()
+/lab-di/nfsdata/home/suhee.yoon/autoanoeval/ADBench/autoanoeval_text/visualization_utils.py:242: UserWarning: Glyph 128269 (\N{LEFT-POINTING MAGNIFYING GLASS}) missing from current font.
+  plt.tight_layout()
+/lab-di/nfsdata/home/suhee.yoon/autoanoeval/ADBench/autoanoeval_text/visualization_utils.py:246: UserWarning: Glyph 127942 (\N{TROPHY}) missing from current font.
+  plt.savefig(filename, dpi=300, bbox_inches='tight')
+/lab-di/nfsdata/home/suhee.yoon/autoanoeval/ADBench/autoanoeval_text/visualization_utils.py:246: UserWarning: Glyph 127919 (\N{DIRECT HIT}) missing from current font.
+  plt.savefig(filename, dpi=300, bbox_inches='tight')
+/lab-di/nfsdata/home/suhee.yoon/autoanoeval/ADBench/autoanoeval_text/visualization_utils.py:246: UserWarning: Glyph 128201 (\N{CHART WITH DOWNWARDS TREND}) missing from current font.
+  plt.savefig(filename, dpi=300, bbox_inches='tight')
+/lab-di/nfsdata/home/suhee.yoon/autoanoeval/ADBench/autoanoeval_text/visualization_utils.py:246: UserWarning: Glyph 128269 (\N{LEFT-POINTING MAGNIFYING GLASS}) missing from current font.
+  plt.savefig(filename, dpi=300, bbox_inches='tight')
+🏆 최고 모델 성능 비교 시각화 (Performance Drop)가 ./result_metric/15_Hepatitis_experiment_results_20250621_162651_cpu/best_model_test_performance.png에 저장되었습니다
+검증-테스트 상관관계 그래프가 ./result_metric/15_Hepatitis_experiment_results_20250621_162651_cpu/validation_test_correlation.png에 저장되었습니다
+✅ 모든 핵심 시각화 완료!
+📁 시각화 파일들이 ./result_metric/15_Hepatitis_experiment_results_20250621_162651_cpu에 저장되었습니다
+📊 생성된 파일:
+   - core_performance_metrics.png
+   - best_model_test_performance.png
+   - validation_test_correlation.png
+📋 실험 요약 리포트: ./result_metric/15_Hepatitis_experiment_results_20250621_162651_cpu/experiment_summary_report.txt
+
+============================================================
+🎯 실험 결론
+============================================================
+📊 전체 평균 성능:
+   • 순위 상관관계: 0.3420
+   • Top-3 일치율: 0.4167
+   • 쌍별 정확도: 0.6227
+
+🥇 최고: Synthetic discrepancy (상관관계: 0.6961)
+🥉 최저: Synthetic global (상관관계: -0.3397)
+
+💡 종합 평가: ❌ 제한적: Synthetic validation 효과 낮음
+============================================================
+
+⏱️ 실험 시간 요약:
+   합성 데이터 생성: 0.23s
+   모델 학습/평가: 9.89s
+   전체 실험 시간: 10.13s
+
+🎉 실험 성공적으로 완료!
+📁 결과 위치: ./result_metric/15_Hepatitis_experiment_results_20250621_162651_cpu

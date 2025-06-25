@@ -1,0 +1,54 @@
+🔬 Synthetic Anomaly 기반 모델 선택 실용성 검증 실험 결과
+================================================================================
+
+📋 실험 목적
+----------------------------------------
+Synthetic anomaly validation이 real anomaly validation만큼
+효과적으로 best model을 선택할 수 있는지 검증
+
+🏆 각 검증 방식별 Best Model (Test Set 성능)
+----------------------------------------
+GT Real Anomaly: MCD (AUC: 0.7405) [기준선]
+Synthetic local: COPOD (AUC: 0.6156, 차이: -0.1249)
+Synthetic cluster: ABOD (AUC: 0.7125, 차이: -0.0280)
+Synthetic global: ABOD (AUC: 0.7125, 차이: -0.0280)
+Synthetic discrepancy: COPOD (AUC: 0.6156, 차이: -0.1249)
+
+📊 핵심 평가 메트릭 (1.0에 가까울수록 GT와 유사)
+----------------------------------------
+
+Synthetic local:
+  - Rank Correlation: 0.4755
+  - Top-3 Overlap: 0.3333
+  - Pairwise Win Rate: 0.6667
+  - MSE (Best Model): 0.151438
+
+Synthetic cluster:
+  - Rank Correlation: 0.1652
+  - Top-3 Overlap: 0.6667
+  - Pairwise Win Rate: 0.4697
+  - MSE (Best Model): 0.085411
+
+Synthetic global:
+  - Rank Correlation: 0.2570
+  - Top-3 Overlap: 0.6667
+  - Pairwise Win Rate: 0.4848
+  - MSE (Best Model): 0.085411
+
+Synthetic discrepancy:
+  - Rank Correlation: 0.4308
+  - Top-3 Overlap: 0.3333
+  - Pairwise Win Rate: 0.6667
+  - MSE (Best Model): 0.151438
+
+🥇 최고 성능: Synthetic local (Rank Correlation: 0.4755)
+
+💡 주요 발견사항
+----------------------------------------
+- 평균 순위 상관관계: 0.3321
+- 평균 Top-3 일치율: 0.5000
+- 평균 쌍별 정확도: 0.5720
+
+❌ Synthetic validation의 효과가 제한적
+
+📈 상세 결과는 CSV 파일과 시각화를 참조하세요.

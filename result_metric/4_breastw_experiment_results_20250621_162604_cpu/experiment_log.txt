@@ -1,0 +1,443 @@
+
+📊 데이터셋 로드: 4_breastw
+📥 CSV 데이터셋 로드: /lab-di/nfsdata/home/suhee.yoon/autoanoeval/data/adbench_column/4_breastw.csv
+📊 로드된 데이터 형태: (683, 10)
+📈 숫자 컬럼: 9개, 문자열 컬럼: 0개
+📊 최종 feature 차원: 9 (숫자만)
+🏷️ 레이블 분포: 정상 444개, 이상 239개
+
+🔍 GPU 가속 요구사항 분석:
+   📊 데이터 크기: 0.0 MB (683 x 9)
+   📊 정상/이상: 444 / 239
+   ❌ GPU 사용 불가 (CuPy 미설치)
+📊 원본 데이터: (683, 9)
+📊 클래스 분포 - 정상: 444, 이상: 239
+
+📋 데이터셋 분할 완료:
+   Train (정상만): (266, 9)
+   Real Validation: (160, 9) (정상: 89, 이상: 71)
+   Test: (257, 9) (정상: 89, 이상: 168)
+
+🧪 Synthetic Anomaly 검증 세트 생성... (CPU)
+🐌 CPU 모드로 데이터 생성기 초기화
+   🔬 local 유형 생성 중...
+
+🔬 local 유형의 이상치 생성 중... (CPU)
+생성할 이상치 개수: 71
+🔬 local 모드로 합성 데이터 생성 (CPU)
+최적 GMM 컴포넌트 수: 4
+🔥 GPU 가속 Local 이상치 생성...
+✅ local 이상치 생성 완료: 71개
+📊 이상치 차원: (71, 9)
+      ✅ local: (160, 9) (정상: 89, 이상: 71) [0.37s]
+   🔬 cluster 유형 생성 중...
+
+🔬 cluster 유형의 이상치 생성 중... (CPU)
+생성할 이상치 개수: 71
+🔬 cluster 모드로 합성 데이터 생성 (CPU)
+최적 GMM 컴포넌트 수: 4
+🔥 GPU 가속 Cluster 이상치 생성...
+✅ cluster 이상치 생성 완료: 71개
+📊 이상치 차원: (71, 9)
+      ✅ cluster: (160, 9) (정상: 89, 이상: 71) [0.18s]
+   🔬 global 유형 생성 중...
+
+🔬 global 유형의 이상치 생성 중... (CPU)
+생성할 이상치 개수: 71
+🔬 global 모드로 합성 데이터 생성 (CPU)
+최적 GMM 컴포넌트 수: 4
+🔥 GPU 가속 Global 이상치 생성...
+✅ global 이상치 생성 완료: 71개
+📊 이상치 차원: (71, 9)
+      ✅ global: (160, 9) (정상: 89, 이상: 71) [0.18s]
+   🔬 discrepancy 유형 생성 중...
+
+🔬 discrepancy 유형의 이상치 생성 중... (CPU)
+생성할 이상치 개수: 71
+✅ discrepancy 이상치 생성 완료: 71개
+📊 이상치 차원: (71, 9)
+      ✅ discrepancy: (160, 9) (정상: 89, 이상: 71) [0.00s]
+
+⚡ 생성 시간 요약 (CPU):
+   local       :   0.37s
+   cluster     :   0.18s
+   global      :   0.18s
+   discrepancy :   0.00s
+   Total       :   0.73s
+   Average     :   0.18s
+
+🚀 모델 선택 실험 실행...
+
+============================================================
+🔬 모델 선택 실험 실행
+============================================================
+
+📊 데이터 준비 및 표준화...
+✅ 평가 모델: 12개
+📋 모델 목록: ['ABOD', 'KNN', 'LOF', 'COF', 'IForest', 'OCSVM', 'COPOD', 'PCA', 'HBOS', 'MCD', 'LODA', 'CBLOF']
+
+🎯 GT Real Anomaly Validation (기준선)
+
+ABOD 모델 평가 중...
+/usr/local/lib/python3.8/dist-packages/numpy/core/fromnumeric.py:3715: RuntimeWarning: Degrees of freedom <= 0 for slice
+  return _methods._var(a, axis=axis, dtype=dtype, out=out, ddof=ddof,
+/usr/local/lib/python3.8/dist-packages/numpy/core/_methods.py:223: RuntimeWarning: invalid value encountered in divide
+  arrmean = um.true_divide(arrmean, div, out=arrmean, casting='unsafe',
+/usr/local/lib/python3.8/dist-packages/numpy/core/_methods.py:257: RuntimeWarning: invalid value encountered in double_scalars
+  ret = ret.dtype.type(ret / rcount)
+/usr/local/lib/python3.8/dist-packages/numpy/core/fromnumeric.py:3715: RuntimeWarning: Degrees of freedom <= 0 for slice
+  return _methods._var(a, axis=axis, dtype=dtype, out=out, ddof=ddof,
+/usr/local/lib/python3.8/dist-packages/numpy/core/_methods.py:223: RuntimeWarning: invalid value encountered in divide
+  arrmean = um.true_divide(arrmean, div, out=arrmean, casting='unsafe',
+/usr/local/lib/python3.8/dist-packages/numpy/core/_methods.py:257: RuntimeWarning: invalid value encountered in double_scalars
+  ret = ret.dtype.type(ret / rcount)
+ABOD 모델 평가 중 오류 발생: Input contains NaN.
+
+KNN 모델 평가 중...
+KNN - Val AUC: 0.9929, Val AP: 0.9898, Val FDR: 0.1446, Test AUC: 0.9842, Test AP: 0.9831, Test FDR: 0.0667, Time: 0.07s
+
+LOF 모델 평가 중...
+LOF - Val AUC: 0.9362, Val AP: 0.8570, Val FDR: 0.1500, Test AUC: 0.9440, Test AP: 0.9364, Test FDR: 0.0655, Time: 0.01s
+
+COF 모델 평가 중...
+COF - Val AUC: 0.3526, Val AP: 0.3453, Val FDR: 1.0000, Test AUC: 0.3904, Test AP: 0.5484, Test FDR: 0.0000, Time: 0.15s
+
+IForest 모델 평가 중...
+IForest - Val AUC: 0.9987, Val AP: 0.9984, Val FDR: 0.1341, Test AUC: 0.9967, Test AP: 0.9981, Test FDR: 0.0562, Time: 0.12s
+
+OCSVM 모델 평가 중...
+OCSVM - Val AUC: 0.9937, Val AP: 0.9915, Val FDR: 0.1446, Test AUC: 0.9947, Test AP: 0.9970, Test FDR: 0.0667, Time: 0.01s
+
+COPOD 모델 평가 중...
+COPOD - Val AUC: 0.9987, Val AP: 0.9984, Val FDR: 0.0658, Test AUC: 0.9962, Test AP: 0.9979, Test FDR: 0.0128, Time: 0.11s
+
+PCA 모델 평가 중...
+PCA - Val AUC: 0.9979, Val AP: 0.9975, Val FDR: 0.1647, Test AUC: 0.9868, Test AP: 0.9890, Test FDR: 0.0667, Time: 0.01s
+
+HBOS 모델 평가 중...
+HBOS - Val AUC: 0.9975, Val AP: 0.9966, Val FDR: 0.0897, Test AUC: 0.9950, Test AP: 0.9971, Test FDR: 0.0457, Time: 1.42s
+
+MCD 모델 평가 중...
+MCD - Val AUC: 0.9926, Val AP: 0.9890, Val FDR: 0.1235, Test AUC: 0.9937, Test AP: 0.9966, Test FDR: 0.0615, Time: 0.03s
+
+LODA 모델 평가 중...
+LODA - Val AUC: 0.9797, Val AP: 0.9549, Val FDR: 0.1446, Test AUC: 0.9911, Test AP: 0.9946, Test FDR: 0.0400, Time: 0.02s
+
+CBLOF 모델 평가 중...
+/usr/local/lib/python3.8/dist-packages/sklearn/cluster/_kmeans.py:1416: FutureWarning: The default value of `n_init` will change from 10 to 'auto' in 1.4. Set the value of `n_init` explicitly to suppress the warning
+  super()._check_params_vs_input(X, default_n_init=10)
+CBLOF - Val AUC: 0.9976, Val AP: 0.9972, Val FDR: 0.1125, Test AUC: 0.9864, Test AP: 0.9876, Test FDR: 0.0615, Time: 1.04s
+Best 모델: IForest
+검증 AUC: 0.9987, 테스트 AUC: 0.9967
+검증 AP: 0.9984, 테스트 AP: 0.9981
+테스트 FDR: 0.0562
+🏆 Best: IForest (Test AUC: 0.9967)
+
+🧪 Synthetic Anomaly Validations
+
+--- Local Synthetic ---
+
+ABOD 모델 평가 중...
+/usr/local/lib/python3.8/dist-packages/numpy/core/fromnumeric.py:3715: RuntimeWarning: Degrees of freedom <= 0 for slice
+  return _methods._var(a, axis=axis, dtype=dtype, out=out, ddof=ddof,
+/usr/local/lib/python3.8/dist-packages/numpy/core/_methods.py:223: RuntimeWarning: invalid value encountered in divide
+  arrmean = um.true_divide(arrmean, div, out=arrmean, casting='unsafe',
+/usr/local/lib/python3.8/dist-packages/numpy/core/_methods.py:257: RuntimeWarning: invalid value encountered in double_scalars
+  ret = ret.dtype.type(ret / rcount)
+/usr/local/lib/python3.8/dist-packages/numpy/core/fromnumeric.py:3715: RuntimeWarning: Degrees of freedom <= 0 for slice
+  return _methods._var(a, axis=axis, dtype=dtype, out=out, ddof=ddof,
+/usr/local/lib/python3.8/dist-packages/numpy/core/_methods.py:223: RuntimeWarning: invalid value encountered in divide
+  arrmean = um.true_divide(arrmean, div, out=arrmean, casting='unsafe',
+/usr/local/lib/python3.8/dist-packages/numpy/core/_methods.py:257: RuntimeWarning: invalid value encountered in double_scalars
+  ret = ret.dtype.type(ret / rcount)
+ABOD 모델 평가 중 오류 발생: Input contains NaN.
+
+KNN 모델 평가 중...
+KNN - Val AUC: 0.7732, Val AP: 0.6893, Val FDR: 0.2667, Test AUC: 0.9842, Test AP: 0.9831, Test FDR: 0.0667, Time: 0.07s
+
+LOF 모델 평가 중...
+LOF - Val AUC: 0.7946, Val AP: 0.7269, Val FDR: 0.2609, Test AUC: 0.9440, Test AP: 0.9364, Test FDR: 0.0655, Time: 0.01s
+
+COF 모델 평가 중...
+COF - Val AUC: 0.7286, Val AP: 0.6567, Val FDR: 0.3529, Test AUC: 0.3904, Test AP: 0.5484, Test FDR: 0.0000, Time: 0.15s
+
+IForest 모델 평가 중...
+IForest - Val AUC: 0.7214, Val AP: 0.6091, Val FDR: 0.3667, Test AUC: 0.9967, Test AP: 0.9981, Test FDR: 0.0562, Time: 0.13s
+
+OCSVM 모델 평가 중...
+OCSVM - Val AUC: 0.8030, Val AP: 0.7152, Val FDR: 0.2609, Test AUC: 0.9947, Test AP: 0.9970, Test FDR: 0.0667, Time: 0.01s
+
+COPOD 모델 평가 중...
+COPOD - Val AUC: 0.9736, Val AP: 0.9355, Val FDR: 0.1013, Test AUC: 0.9962, Test AP: 0.9979, Test FDR: 0.0128, Time: 0.01s
+
+PCA 모델 평가 중...
+PCA - Val AUC: 0.8036, Val AP: 0.7170, Val FDR: 0.2917, Test AUC: 0.9868, Test AP: 0.9890, Test FDR: 0.0667, Time: 0.01s
+
+HBOS 모델 평가 중...
+HBOS - Val AUC: 0.8265, Val AP: 0.7796, Val FDR: 0.1842, Test AUC: 0.9950, Test AP: 0.9971, Test FDR: 0.0457, Time: 0.01s
+
+MCD 모델 평가 중...
+MCD - Val AUC: 0.7253, Val AP: 0.6294, Val FDR: 0.3448, Test AUC: 0.9937, Test AP: 0.9966, Test FDR: 0.0615, Time: 0.03s
+
+LODA 모델 평가 중...
+LODA - Val AUC: 0.7449, Val AP: 0.6392, Val FDR: 0.3182, Test AUC: 0.9926, Test AP: 0.9957, Test FDR: 0.0618, Time: 0.02s
+
+CBLOF 모델 평가 중...
+/usr/local/lib/python3.8/dist-packages/sklearn/cluster/_kmeans.py:1416: FutureWarning: The default value of `n_init` will change from 10 to 'auto' in 1.4. Set the value of `n_init` explicitly to suppress the warning
+  super()._check_params_vs_input(X, default_n_init=10)
+CBLOF - Val AUC: 0.7789, Val AP: 0.7006, Val FDR: 0.2143, Test AUC: 0.9864, Test AP: 0.9876, Test FDR: 0.0615, Time: 0.10s
+Best 모델: COPOD
+검증 AUC: 0.9736, 테스트 AUC: 0.9962
+검증 AP: 0.9355, 테스트 AP: 0.9979
+테스트 FDR: 0.0128
+🏆 Best: COPOD (Test AUC: 0.9962)
+
+--- Cluster Synthetic ---
+
+ABOD 모델 평가 중...
+/usr/local/lib/python3.8/dist-packages/numpy/core/fromnumeric.py:3715: RuntimeWarning: Degrees of freedom <= 0 for slice
+  return _methods._var(a, axis=axis, dtype=dtype, out=out, ddof=ddof,
+/usr/local/lib/python3.8/dist-packages/numpy/core/_methods.py:223: RuntimeWarning: invalid value encountered in divide
+  arrmean = um.true_divide(arrmean, div, out=arrmean, casting='unsafe',
+/usr/local/lib/python3.8/dist-packages/numpy/core/_methods.py:257: RuntimeWarning: invalid value encountered in double_scalars
+  ret = ret.dtype.type(ret / rcount)
+/usr/local/lib/python3.8/dist-packages/numpy/core/fromnumeric.py:3715: RuntimeWarning: Degrees of freedom <= 0 for slice
+  return _methods._var(a, axis=axis, dtype=dtype, out=out, ddof=ddof,
+/usr/local/lib/python3.8/dist-packages/numpy/core/_methods.py:223: RuntimeWarning: invalid value encountered in divide
+  arrmean = um.true_divide(arrmean, div, out=arrmean, casting='unsafe',
+/usr/local/lib/python3.8/dist-packages/numpy/core/_methods.py:257: RuntimeWarning: invalid value encountered in double_scalars
+  ret = ret.dtype.type(ret / rcount)
+ABOD 모델 평가 중 오류 발생: Input contains NaN.
+
+KNN 모델 평가 중...
+KNN - Val AUC: 0.9668, Val AP: 0.9277, Val FDR: 0.1446, Test AUC: 0.9842, Test AP: 0.9831, Test FDR: 0.0667, Time: 0.07s
+
+LOF 모델 평가 중...
+LOF - Val AUC: 0.9650, Val AP: 0.9139, Val FDR: 0.1446, Test AUC: 0.9440, Test AP: 0.9364, Test FDR: 0.0655, Time: 0.01s
+
+COF 모델 평가 중...
+COF - Val AUC: 0.3765, Val AP: 0.3526, Val FDR: 1.0000, Test AUC: 0.3904, Test AP: 0.5484, Test FDR: 0.0000, Time: 0.15s
+
+IForest 모델 평가 중...
+IForest - Val AUC: 0.9733, Val AP: 0.9573, Val FDR: 0.1341, Test AUC: 0.9967, Test AP: 0.9981, Test FDR: 0.0562, Time: 0.13s
+
+OCSVM 모델 평가 중...
+OCSVM - Val AUC: 0.9745, Val AP: 0.9572, Val FDR: 0.1446, Test AUC: 0.9947, Test AP: 0.9970, Test FDR: 0.0667, Time: 0.01s
+
+COPOD 모델 평가 중...
+COPOD - Val AUC: 0.9953, Val AP: 0.9925, Val FDR: 0.0897, Test AUC: 0.9962, Test AP: 0.9979, Test FDR: 0.0128, Time: 0.01s
+
+PCA 모델 평가 중...
+PCA - Val AUC: 0.9720, Val AP: 0.9483, Val FDR: 0.1647, Test AUC: 0.9868, Test AP: 0.9890, Test FDR: 0.0667, Time: 0.01s
+
+HBOS 모델 평가 중...
+HBOS - Val AUC: 0.9539, Val AP: 0.9246, Val FDR: 0.1522, Test AUC: 0.9950, Test AP: 0.9971, Test FDR: 0.0457, Time: 0.01s
+
+MCD 모델 평가 중...
+MCD - Val AUC: 0.8886, Val AP: 0.8062, Val FDR: 0.2041, Test AUC: 0.9937, Test AP: 0.9966, Test FDR: 0.0615, Time: 0.03s
+
+LODA 모델 평가 중...
+LODA - Val AUC: 0.9484, Val AP: 0.8848, Val FDR: 0.1341, Test AUC: 0.9920, Test AP: 0.9955, Test FDR: 0.0562, Time: 0.02s
+
+CBLOF 모델 평가 중...
+/usr/local/lib/python3.8/dist-packages/sklearn/cluster/_kmeans.py:1416: FutureWarning: The default value of `n_init` will change from 10 to 'auto' in 1.4. Set the value of `n_init` explicitly to suppress the warning
+  super()._check_params_vs_input(X, default_n_init=10)
+CBLOF - Val AUC: 0.9701, Val AP: 0.9455, Val FDR: 0.1125, Test AUC: 0.9864, Test AP: 0.9876, Test FDR: 0.0615, Time: 0.11s
+Best 모델: COPOD
+검증 AUC: 0.9953, 테스트 AUC: 0.9962
+검증 AP: 0.9925, 테스트 AP: 0.9979
+테스트 FDR: 0.0128
+🏆 Best: COPOD (Test AUC: 0.9962)
+
+--- Global Synthetic ---
+
+ABOD 모델 평가 중...
+/usr/local/lib/python3.8/dist-packages/numpy/core/fromnumeric.py:3715: RuntimeWarning: Degrees of freedom <= 0 for slice
+  return _methods._var(a, axis=axis, dtype=dtype, out=out, ddof=ddof,
+/usr/local/lib/python3.8/dist-packages/numpy/core/_methods.py:223: RuntimeWarning: invalid value encountered in divide
+  arrmean = um.true_divide(arrmean, div, out=arrmean, casting='unsafe',
+/usr/local/lib/python3.8/dist-packages/numpy/core/_methods.py:257: RuntimeWarning: invalid value encountered in double_scalars
+  ret = ret.dtype.type(ret / rcount)
+/usr/local/lib/python3.8/dist-packages/numpy/core/fromnumeric.py:3715: RuntimeWarning: Degrees of freedom <= 0 for slice
+  return _methods._var(a, axis=axis, dtype=dtype, out=out, ddof=ddof,
+/usr/local/lib/python3.8/dist-packages/numpy/core/_methods.py:223: RuntimeWarning: invalid value encountered in divide
+  arrmean = um.true_divide(arrmean, div, out=arrmean, casting='unsafe',
+/usr/local/lib/python3.8/dist-packages/numpy/core/_methods.py:257: RuntimeWarning: invalid value encountered in double_scalars
+  ret = ret.dtype.type(ret / rcount)
+ABOD 모델 평가 중 오류 발생: Input contains NaN.
+
+KNN 모델 평가 중...
+KNN - Val AUC: 0.9968, Val AP: 0.9960, Val FDR: 0.1446, Test AUC: 0.9842, Test AP: 0.9831, Test FDR: 0.0667, Time: 0.07s
+
+LOF 모델 평가 중...
+LOF - Val AUC: 0.9530, Val AP: 0.8948, Val FDR: 0.1481, Test AUC: 0.9440, Test AP: 0.9364, Test FDR: 0.0655, Time: 0.02s
+
+COF 모델 평가 중...
+COF - Val AUC: 0.3477, Val AP: 0.3432, Val FDR: 1.0000, Test AUC: 0.3904, Test AP: 0.5484, Test FDR: 0.0000, Time: 0.16s
+
+IForest 모델 평가 중...
+IForest - Val AUC: 0.9992, Val AP: 0.9991, Val FDR: 0.1341, Test AUC: 0.9967, Test AP: 0.9981, Test FDR: 0.0562, Time: 0.13s
+
+OCSVM 모델 평가 중...
+OCSVM - Val AUC: 0.9981, Val AP: 0.9978, Val FDR: 0.1446, Test AUC: 0.9947, Test AP: 0.9970, Test FDR: 0.0667, Time: 0.01s
+
+COPOD 모델 평가 중...
+COPOD - Val AUC: 0.9998, Val AP: 0.9998, Val FDR: 0.0658, Test AUC: 0.9962, Test AP: 0.9979, Test FDR: 0.0128, Time: 0.01s
+
+PCA 모델 평가 중...
+PCA - Val AUC: 0.9983, Val AP: 0.9980, Val FDR: 0.1647, Test AUC: 0.9868, Test AP: 0.9890, Test FDR: 0.0667, Time: 0.01s
+
+HBOS 모델 평가 중...
+HBOS - Val AUC: 0.9979, Val AP: 0.9973, Val FDR: 0.0897, Test AUC: 0.9950, Test AP: 0.9971, Test FDR: 0.0457, Time: 0.01s
+
+MCD 모델 평가 중...
+MCD - Val AUC: 0.9842, Val AP: 0.9711, Val FDR: 0.1235, Test AUC: 0.9937, Test AP: 0.9966, Test FDR: 0.0615, Time: 0.04s
+
+LODA 모델 평가 중...
+LODA - Val AUC: 0.9968, Val AP: 0.9961, Val FDR: 0.1647, Test AUC: 0.9942, Test AP: 0.9965, Test FDR: 0.0769, Time: 0.02s
+
+CBLOF 모델 평가 중...
+/usr/local/lib/python3.8/dist-packages/sklearn/cluster/_kmeans.py:1416: FutureWarning: The default value of `n_init` will change from 10 to 'auto' in 1.4. Set the value of `n_init` explicitly to suppress the warning
+  super()._check_params_vs_input(X, default_n_init=10)
+CBLOF - Val AUC: 0.9984, Val AP: 0.9982, Val FDR: 0.1125, Test AUC: 0.9864, Test AP: 0.9876, Test FDR: 0.0615, Time: 0.13s
+Best 모델: COPOD
+검증 AUC: 0.9998, 테스트 AUC: 0.9962
+검증 AP: 0.9998, 테스트 AP: 0.9979
+테스트 FDR: 0.0128
+🏆 Best: COPOD (Test AUC: 0.9962)
+
+--- Discrepancy Synthetic ---
+
+ABOD 모델 평가 중...
+/usr/local/lib/python3.8/dist-packages/numpy/core/fromnumeric.py:3715: RuntimeWarning: Degrees of freedom <= 0 for slice
+  return _methods._var(a, axis=axis, dtype=dtype, out=out, ddof=ddof,
+/usr/local/lib/python3.8/dist-packages/numpy/core/_methods.py:223: RuntimeWarning: invalid value encountered in divide
+  arrmean = um.true_divide(arrmean, div, out=arrmean, casting='unsafe',
+/usr/local/lib/python3.8/dist-packages/numpy/core/_methods.py:257: RuntimeWarning: invalid value encountered in double_scalars
+  ret = ret.dtype.type(ret / rcount)
+/usr/local/lib/python3.8/dist-packages/numpy/core/fromnumeric.py:3715: RuntimeWarning: Degrees of freedom <= 0 for slice
+  return _methods._var(a, axis=axis, dtype=dtype, out=out, ddof=ddof,
+/usr/local/lib/python3.8/dist-packages/numpy/core/_methods.py:223: RuntimeWarning: invalid value encountered in divide
+  arrmean = um.true_divide(arrmean, div, out=arrmean, casting='unsafe',
+/usr/local/lib/python3.8/dist-packages/numpy/core/_methods.py:257: RuntimeWarning: invalid value encountered in double_scalars
+  ret = ret.dtype.type(ret / rcount)
+ABOD 모델 평가 중 오류 발생: Input contains NaN.
+
+KNN 모델 평가 중...
+KNN - Val AUC: 0.7593, Val AP: 0.5787, Val FDR: 0.7059, Test AUC: 0.9842, Test AP: 0.9831, Test FDR: 0.0667, Time: 0.07s
+
+LOF 모델 평가 중...
+LOF - Val AUC: 0.8104, Val AP: 0.6670, Val FDR: 0.4138, Test AUC: 0.9440, Test AP: 0.9364, Test FDR: 0.0655, Time: 0.01s
+
+COF 모델 평가 중...
+COF - Val AUC: 0.5200, Val AP: 0.4631, Val FDR: 0.5714, Test AUC: 0.3904, Test AP: 0.5484, Test FDR: 0.0000, Time: 0.16s
+
+IForest 모델 평가 중...
+IForest - Val AUC: 0.8103, Val AP: 0.6283, Val FDR: 1.0000, Test AUC: 0.9967, Test AP: 0.9981, Test FDR: 0.0562, Time: 0.13s
+
+OCSVM 모델 평가 중...
+OCSVM - Val AUC: 0.5563, Val AP: 0.4616, Val FDR: 0.7059, Test AUC: 0.9947, Test AP: 0.9970, Test FDR: 0.0667, Time: 0.01s
+
+COPOD 모델 평가 중...
+COPOD - Val AUC: 0.9348, Val AP: 0.8113, Val FDR: 0.1235, Test AUC: 0.9962, Test AP: 0.9979, Test FDR: 0.0128, Time: 0.01s
+
+PCA 모델 평가 중...
+PCA - Val AUC: 0.4926, Val AP: 0.4329, Val FDR: 0.6667, Test AUC: 0.9868, Test AP: 0.9890, Test FDR: 0.0667, Time: 0.01s
+
+HBOS 모델 평가 중...
+HBOS - Val AUC: 0.8416, Val AP: 0.6985, Val FDR: 0.3889, Test AUC: 0.9950, Test AP: 0.9971, Test FDR: 0.0457, Time: 0.01s
+
+MCD 모델 평가 중...
+MCD - Val AUC: 0.7862, Val AP: 0.5954, Val FDR: 0.7143, Test AUC: 0.9937, Test AP: 0.9966, Test FDR: 0.0615, Time: 0.04s
+
+LODA 모델 평가 중...
+LODA - Val AUC: 0.5461, Val AP: 0.4435, Val FDR: 0.7059, Test AUC: 0.9930, Test AP: 0.9961, Test FDR: 0.0562, Time: 0.02s
+
+CBLOF 모델 평가 중...
+/usr/local/lib/python3.8/dist-packages/sklearn/cluster/_kmeans.py:1416: FutureWarning: The default value of `n_init` will change from 10 to 'auto' in 1.4. Set the value of `n_init` explicitly to suppress the warning
+  super()._check_params_vs_input(X, default_n_init=10)
+CBLOF - Val AUC: 0.7166, Val AP: 0.5431, Val FDR: 0.6429, Test AUC: 0.9864, Test AP: 0.9876, Test FDR: 0.0615, Time: 0.11s
+Best 모델: COPOD
+검증 AUC: 0.9348, 테스트 AUC: 0.9962
+검증 AP: 0.8113, 테스트 AP: 0.9979
+테스트 FDR: 0.0128
+🏆 Best: COPOD (Test AUC: 0.9962)
+
+📈 결과 분석 및 저장...
+Best 모델: IForest
+검증 AUC: 0.9987, 테스트 AUC: 0.9967
+검증 AP: 0.9984, 테스트 AP: 0.9981
+테스트 FDR: 0.0562
+Best 모델: COPOD
+검증 AUC: 0.9736, 테스트 AUC: 0.9962
+검증 AP: 0.9355, 테스트 AP: 0.9979
+테스트 FDR: 0.0128
+📊 local: Corr=0.355, Overlap=0.667
+Best 모델: COPOD
+검증 AUC: 0.9953, 테스트 AUC: 0.9962
+검증 AP: 0.9925, 테스트 AP: 0.9979
+테스트 FDR: 0.0128
+📊 cluster: Corr=0.802, Overlap=0.667
+Best 모델: COPOD
+검증 AUC: 0.9998, 테스트 AUC: 0.9962
+검증 AP: 0.9998, 테스트 AP: 0.9979
+테스트 FDR: 0.0128
+📊 global: Corr=0.963, Overlap=0.667
+Best 모델: COPOD
+검증 AUC: 0.9348, 테스트 AUC: 0.9962
+검증 AP: 0.8113, 테스트 AP: 0.9979
+테스트 FDR: 0.0128
+📊 discrepancy: Corr=0.305, Overlap=0.333
+💾 결과 파일 저장 완료
+Debug - best_models keys: ['real_validation', 'synthetic_local_validation', 'synthetic_cluster_validation', 'synthetic_global_validation', 'synthetic_discrepancy_validation']
+Debug - evaluation_metrics keys: ['synthetic_local_validation', 'synthetic_cluster_validation', 'synthetic_global_validation', 'synthetic_discrepancy_validation']
+
+🎨 핵심 시각화 생성 중... 
+📊 핵심 성능 메트릭 비교 시각화가 ./result_metric/4_breastw_experiment_results_20250621_162604_cpu/core_performance_metrics.png에 저장되었습니다
+/lab-di/nfsdata/home/suhee.yoon/autoanoeval/ADBench/autoanoeval_text/visualization_utils.py:242: UserWarning: Glyph 127942 (\N{TROPHY}) missing from current font.
+  plt.tight_layout()
+/lab-di/nfsdata/home/suhee.yoon/autoanoeval/ADBench/autoanoeval_text/visualization_utils.py:242: UserWarning: Glyph 127919 (\N{DIRECT HIT}) missing from current font.
+  plt.tight_layout()
+/lab-di/nfsdata/home/suhee.yoon/autoanoeval/ADBench/autoanoeval_text/visualization_utils.py:242: UserWarning: Glyph 128201 (\N{CHART WITH DOWNWARDS TREND}) missing from current font.
+  plt.tight_layout()
+/lab-di/nfsdata/home/suhee.yoon/autoanoeval/ADBench/autoanoeval_text/visualization_utils.py:242: UserWarning: Glyph 128269 (\N{LEFT-POINTING MAGNIFYING GLASS}) missing from current font.
+  plt.tight_layout()
+/lab-di/nfsdata/home/suhee.yoon/autoanoeval/ADBench/autoanoeval_text/visualization_utils.py:246: UserWarning: Glyph 127942 (\N{TROPHY}) missing from current font.
+  plt.savefig(filename, dpi=300, bbox_inches='tight')
+/lab-di/nfsdata/home/suhee.yoon/autoanoeval/ADBench/autoanoeval_text/visualization_utils.py:246: UserWarning: Glyph 127919 (\N{DIRECT HIT}) missing from current font.
+  plt.savefig(filename, dpi=300, bbox_inches='tight')
+/lab-di/nfsdata/home/suhee.yoon/autoanoeval/ADBench/autoanoeval_text/visualization_utils.py:246: UserWarning: Glyph 128201 (\N{CHART WITH DOWNWARDS TREND}) missing from current font.
+  plt.savefig(filename, dpi=300, bbox_inches='tight')
+/lab-di/nfsdata/home/suhee.yoon/autoanoeval/ADBench/autoanoeval_text/visualization_utils.py:246: UserWarning: Glyph 128269 (\N{LEFT-POINTING MAGNIFYING GLASS}) missing from current font.
+  plt.savefig(filename, dpi=300, bbox_inches='tight')
+🏆 최고 모델 성능 비교 시각화 (Performance Drop)가 ./result_metric/4_breastw_experiment_results_20250621_162604_cpu/best_model_test_performance.png에 저장되었습니다
+검증-테스트 상관관계 그래프가 ./result_metric/4_breastw_experiment_results_20250621_162604_cpu/validation_test_correlation.png에 저장되었습니다
+✅ 모든 핵심 시각화 완료!
+📁 시각화 파일들이 ./result_metric/4_breastw_experiment_results_20250621_162604_cpu에 저장되었습니다
+📊 생성된 파일:
+   - core_performance_metrics.png
+   - best_model_test_performance.png
+   - validation_test_correlation.png
+📋 실험 요약 리포트: ./result_metric/4_breastw_experiment_results_20250621_162604_cpu/experiment_summary_report.txt
+
+============================================================
+🎯 실험 결론
+============================================================
+📊 전체 평균 성능:
+   • 순위 상관관계: 0.6065
+   • Top-3 일치율: 0.5833
+   • 쌍별 정확도: 0.7636
+
+🥇 최고: Synthetic global (상관관계: 0.9635)
+🥉 최저: Synthetic discrepancy (상관관계: 0.3052)
+
+💡 종합 평가: ⚠️ 실용적: Synthetic validation 부분적 활용 가능
+============================================================
+
+⏱️ 실험 시간 요약:
+   합성 데이터 생성: 0.73s
+   모델 학습/평가: 11.84s
+   전체 실험 시간: 12.57s
+
+🎉 실험 성공적으로 완료!
+📁 결과 위치: ./result_metric/4_breastw_experiment_results_20250621_162604_cpu
