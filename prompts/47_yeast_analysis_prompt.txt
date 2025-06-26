@@ -1,0 +1,63 @@
+**Respond with valid JSON only — no prose, no bullet points.**  
+Your objective is to predict what combinations of values may indicate a plausible fault or anomaly scenario.
+
+Consider the following dataset description:
+• Dataset: 47_yeast
+• Total samples: 1,484 (Normal: 1,389, Anomaly: 95)
+• Features: 8
+
+Consider the following features:
+McGeoch's method for signal sequence recognition, von Heijne's method for signal sequence recognition, Score of the ALOM membrane spanning region prediction program, Score of discriminant analysis of the amino acid content of the N-terminal region (20 residues long) of mitochondrial and non-mitochondrial proteins, Presence of HDEL substring (thought to act as a signal for retention in the endoplasmic reticulum lumen). Binary attribute, Peroxisomal targeting signal in the C-terminus, Score of discriminant analysis of the amino acid content of vacuolar and extracellular proteins, Score of discriminant analysis of nuclear localization signals of nuclear and non-nuclear proteins
+
+Here are examples of normal samples from the dataset:
+
+Normal Sample 1: McGeoch's method for signal sequence recognition is 0.58 , von Heijne's method for signal sequence recognition is 0.61 , Score of the ALOM membrane spanning region prediction program is 0.47 , Score of discriminant analysis of the amino acid content of the N-terminal region (20 residues long) of mitochondrial and non-mitochondrial proteins is 0.13 , Presence of HDEL substring (thought to act as a signal for retention in the endoplasmic reticulum lumen). Binary attribute is 0.5 , Peroxisomal targeting signal in the C-terminus is 0 , Score of discriminant analysis of the amino acid content of vacuolar and extracellular proteins is 0.48 , Score of discriminant analysis of nuclear localization signals of nuclear and non-nuclear proteins is 0.22
+
+Normal Sample 2: McGeoch's method for signal sequence recognition is 0.43 , von Heijne's method for signal sequence recognition is 0.67 , Score of the ALOM membrane spanning region prediction program is 0.48 , Score of discriminant analysis of the amino acid content of the N-terminal region (20 residues long) of mitochondrial and non-mitochondrial proteins is 0.27 , Presence of HDEL substring (thought to act as a signal for retention in the endoplasmic reticulum lumen). Binary attribute is 0.5 , Peroxisomal targeting signal in the C-terminus is 0 , Score of discriminant analysis of the amino acid content of vacuolar and extracellular proteins is 0.53 , Score of discriminant analysis of nuclear localization signals of nuclear and non-nuclear proteins is 0.22
+
+Normal Sample 3: McGeoch's method for signal sequence recognition is 0.64 , von Heijne's method for signal sequence recognition is 0.62 , Score of the ALOM membrane spanning region prediction program is 0.49 , Score of discriminant analysis of the amino acid content of the N-terminal region (20 residues long) of mitochondrial and non-mitochondrial proteins is 0.15 , Presence of HDEL substring (thought to act as a signal for retention in the endoplasmic reticulum lumen). Binary attribute is 0.5 , Peroxisomal targeting signal in the C-terminus is 0 , Score of discriminant analysis of the amino acid content of vacuolar and extracellular proteins is 0.53 , Score of discriminant analysis of nuclear localization signals of nuclear and non-nuclear proteins is 0.22
+
+Normal Sample 4: McGeoch's method for signal sequence recognition is 0.58 , von Heijne's method for signal sequence recognition is 0.44 , Score of the ALOM membrane spanning region prediction program is 0.57 , Score of discriminant analysis of the amino acid content of the N-terminal region (20 residues long) of mitochondrial and non-mitochondrial proteins is 0.13 , Presence of HDEL substring (thought to act as a signal for retention in the endoplasmic reticulum lumen). Binary attribute is 0.5 , Peroxisomal targeting signal in the C-terminus is 0 , Score of discriminant analysis of the amino acid content of vacuolar and extracellular proteins is 0.54 , Score of discriminant analysis of nuclear localization signals of nuclear and non-nuclear proteins is 0.22
+
+Normal Sample 5: McGeoch's method for signal sequence recognition is 0.42 , von Heijne's method for signal sequence recognition is 0.44 , Score of the ALOM membrane spanning region prediction program is 0.48 , Score of discriminant analysis of the amino acid content of the N-terminal region (20 residues long) of mitochondrial and non-mitochondrial proteins is 0.54 , Presence of HDEL substring (thought to act as a signal for retention in the endoplasmic reticulum lumen). Binary attribute is 0.5 , Peroxisomal targeting signal in the C-terminus is 0 , Score of discriminant analysis of the amino acid content of vacuolar and extracellular proteins is 0.48 , Score of discriminant analysis of nuclear localization signals of nuclear and non-nuclear proteins is 0.22
+
+Normal Sample 6: McGeoch's method for signal sequence recognition is 0.51 , von Heijne's method for signal sequence recognition is 0.4 , Score of the ALOM membrane spanning region prediction program is 0.56 , Score of discriminant analysis of the amino acid content of the N-terminal region (20 residues long) of mitochondrial and non-mitochondrial proteins is 0.17 , Presence of HDEL substring (thought to act as a signal for retention in the endoplasmic reticulum lumen). Binary attribute is 0.5 , Peroxisomal targeting signal in the C-terminus is 0.5 , Score of discriminant analysis of the amino acid content of vacuolar and extracellular proteins is 0.49 , Score of discriminant analysis of nuclear localization signals of nuclear and non-nuclear proteins is 0.22
+
+Normal Sample 7: McGeoch's method for signal sequence recognition is 0.5 , von Heijne's method for signal sequence recognition is 0.54 , Score of the ALOM membrane spanning region prediction program is 0.48 , Score of discriminant analysis of the amino acid content of the N-terminal region (20 residues long) of mitochondrial and non-mitochondrial proteins is 0.65 , Presence of HDEL substring (thought to act as a signal for retention in the endoplasmic reticulum lumen). Binary attribute is 0.5 , Peroxisomal targeting signal in the C-terminus is 0 , Score of discriminant analysis of the amino acid content of vacuolar and extracellular proteins is 0.53 , Score of discriminant analysis of nuclear localization signals of nuclear and non-nuclear proteins is 0.22
+
+Normal Sample 8: McGeoch's method for signal sequence recognition is 0.48 , von Heijne's method for signal sequence recognition is 0.45 , Score of the ALOM membrane spanning region prediction program is 0.59 , Score of discriminant analysis of the amino acid content of the N-terminal region (20 residues long) of mitochondrial and non-mitochondrial proteins is 0.2 , Presence of HDEL substring (thought to act as a signal for retention in the endoplasmic reticulum lumen). Binary attribute is 0.5 , Peroxisomal targeting signal in the C-terminus is 0 , Score of discriminant analysis of the amino acid content of vacuolar and extracellular proteins is 0.58 , Score of discriminant analysis of nuclear localization signals of nuclear and non-nuclear proteins is 0.34
+
+Normal Sample 9: McGeoch's method for signal sequence recognition is 0.55 , von Heijne's method for signal sequence recognition is 0.5 , Score of the ALOM membrane spanning region prediction program is 0.66 , Score of discriminant analysis of the amino acid content of the N-terminal region (20 residues long) of mitochondrial and non-mitochondrial proteins is 0.36 , Presence of HDEL substring (thought to act as a signal for retention in the endoplasmic reticulum lumen). Binary attribute is 0.5 , Peroxisomal targeting signal in the C-terminus is 0 , Score of discriminant analysis of the amino acid content of vacuolar and extracellular proteins is 0.49 , Score of discriminant analysis of nuclear localization signals of nuclear and non-nuclear proteins is 0.22
+
+Normal Sample 10: McGeoch's method for signal sequence recognition is 0.4 , von Heijne's method for signal sequence recognition is 0.39 , Score of the ALOM membrane spanning region prediction program is 0.6 , Score of discriminant analysis of the amino acid content of the N-terminal region (20 residues long) of mitochondrial and non-mitochondrial proteins is 0.15 , Presence of HDEL substring (thought to act as a signal for retention in the endoplasmic reticulum lumen). Binary attribute is 0.5 , Peroxisomal targeting signal in the C-terminus is 0 , Score of discriminant analysis of the amino acid content of vacuolar and extracellular proteins is 0.58 , Score of discriminant analysis of nuclear localization signals of nuclear and non-nuclear proteins is 0.3
+
+Based on these 10 normal examples, explain step-by-step what would constitute realistic anomaly patterns:
+
+1️⃣ Identify typical feature relationships
+Normally, [describe typical relationships between features based on the examples above]
+
+2️⃣ Derive anomaly conditions 1
+If [condition], this might be due to [reason].
+
+3️⃣ Derive anomaly conditions 2
+Similarly, [another condition] may suggest [another reason].
+
+Then provide mathematical conditions for anomalies:
+
+📌 Anomaly Condition Examples (always combine **at least two** different features):
+• [Feature_A] > [threshold_A] AND [Feature_B] < [threshold_B] → 🔍 [explanation]
+• [Feature_C] > [threshold_C] AND [Feature_D] / [Feature_E] > [ratio] → 🔍 [explanation]
+• [Feature_F] = [value_F] AND [Feature_G] < [threshold_G] AND [Feature_H] > [threshold_H] → 🔍 [explanation]
+
+📌 Provide 5 anomaly conditions in JSON format, each with a `condition`, `explanation`, and `scenario`:
+
+{
+    "normal_relationships": "Description of typical feature relationships observed in the normal samples",
+    "anomaly_conditions": [
+        {
+            "condition": "mathematical condition (e.g., LB > 200 AND AC < 1)",
+            "explanation": "reason why this combination is anomalous",
+            "scenario": "real-world scenario that could cause this anomaly"
+        }
+    ]
+}

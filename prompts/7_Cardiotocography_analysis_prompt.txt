@@ -1,0 +1,63 @@
+**Respond with valid JSON only — no prose, no bullet points.**  
+Your objective is to predict what combinations of values may indicate a plausible fault or anomaly scenario.
+
+Consider the following dataset description:
+• Dataset: 7_Cardiotocography
+• Total samples: 2,114 (Normal: 1,648, Anomaly: 466)
+• Features: 22
+
+Consider the following features:
+LB, AC, FM, UC, ASTV, MSTV, ALTV, MLTV, DL, DS, DP, Width, Min, Max, Nmax, Nzeros, Mode, Mean, Median, Variance, Tendency, prompt
+
+Here are examples of normal samples from the dataset:
+
+Normal Sample 1: LB is 132 , AC is 4 , FM is 0 , UC is 13 , ASTV is 17 , MSTV is 2.1 , ALTV is 0 , MLTV is 10.4 , DL is 7 , DS is 0 , DP is 0 , Width is 130 , Min is 68 , Max is 198 , Nmax is 14 , Nzeros is 1 , Mode is 141 , Mean is 136 , Median is 140 , Variance is 12 , Tendency is 2 , prompt is 954
+
+Normal Sample 2: LB is 133 , AC is 2 , FM is 0 , UC is 14 , ASTV is 16 , MSTV is 2.1 , ALTV is 0 , MLTV is 13.4 , DL is 7 , DS is 0 , DP is 0 , Width is 130 , Min is 68 , Max is 198 , Nmax is 13 , Nzeros is 1 , Mode is 141 , Mean is 135 , Median is 138 , Variance is 13 , Tendency is 2 , prompt is 1085
+
+Normal Sample 3: LB is 134 , AC is 2 , FM is 0 , UC is 15 , ASTV is 16 , MSTV is 2.4 , ALTV is 0 , MLTV is 23 , DL is 7 , DS is 0 , DP is 0 , Width is 117 , Min is 53 , Max is 170 , Nmax is 3 , Nzeros is 0 , Mode is 137 , Mean is 134 , Median is 137 , Variance is 13 , Tendency is 1 , prompt is 1152
+
+Normal Sample 4: LB is 132 , AC is 4 , FM is 0 , UC is 14 , ASTV is 16 , MSTV is 2.4 , ALTV is 0 , MLTV is 19.9 , DL is 0 , DS is 0 , DP is 0 , Width is 117 , Min is 53 , Max is 170 , Nmax is 17 , Nzeros is 0 , Mode is 137 , Mean is 136 , Median is 138 , Variance is 11 , Tendency is 1 , prompt is 955
+
+Normal Sample 5: LB is 131 , AC is 4 , FM is 57 , UC is 15 , ASTV is 28 , MSTV is 1.4 , ALTV is 0 , MLTV is 12.9 , DL is 7 , DS is 0 , DP is 0 , Width is 66 , Min is 88 , Max is 154 , Nmax is 13 , Nzeros is 0 , Mode is 135 , Mean is 134 , Median is 137 , Variance is 7 , Tendency is 1 , prompt is 881
+
+Normal Sample 6: LB is 131 , AC is 6 , FM is 147 , UC is 13 , ASTV is 28 , MSTV is 1.5 , ALTV is 0 , MLTV is 5.4 , DL is 1 , DS is 0 , DP is 0 , Width is 87 , Min is 71 , Max is 158 , Nmax is 10 , Nzeros is 0 , Mode is 141 , Mean is 137 , Median is 141 , Variance is 10 , Tendency is 1 , prompt is 890
+
+Normal Sample 7: LB is 130 , AC is 7 , FM is 489 , UC is 14 , ASTV is 21 , MSTV is 2.3 , ALTV is 0 , MLTV is 7.9 , DL is 11 , DS is 0 , DP is 1 , Width is 107 , Min is 67 , Max is 174 , Nmax is 15 , Nzeros is 0 , Mode is 143 , Mean is 125 , Median is 135 , Variance is 76 , Tendency is 2 , prompt is 833
+
+Normal Sample 8: LB is 130 , AC is 4 , FM is 273 , UC is 12 , ASTV is 19 , MSTV is 2.3 , ALTV is 0 , MLTV is 8.7 , DL is 8 , DS is 0 , DP is 1 , Width is 107 , Min is 67 , Max is 174 , Nmax is 11 , Nzeros is 0 , Mode is 134 , Mean is 127 , Median is 133 , Variance is 43 , Tendency is 2 , prompt is 811
+
+Normal Sample 9: LB is 130 , AC is 4 , FM is 290 , UC is 12 , ASTV is 24 , MSTV is 2.1 , ALTV is 0 , MLTV is 10.9 , DL is 8 , DS is 0 , DP is 0 , Width is 125 , Min is 53 , Max is 178 , Nmax is 13 , Nzeros is 0 , Mode is 143 , Mean is 128 , Median is 138 , Variance is 70 , Tendency is 1 , prompt is 812
+
+Normal Sample 10: LB is 130 , AC is 2 , FM is 317 , UC is 13 , ASTV is 23 , MSTV is 1.9 , ALTV is 0 , MLTV is 8.8 , DL is 8 , DS is 0 , DP is 1 , Width is 99 , Min is 59 , Max is 158 , Nmax is 14 , Nzeros is 0 , Mode is 133 , Mean is 124 , Median is 129 , Variance is 36 , Tendency is 1 , prompt is 793
+
+Based on these 10 normal examples, explain step-by-step what would constitute realistic anomaly patterns:
+
+1️⃣ Identify typical feature relationships
+Normally, [describe typical relationships between features based on the examples above]
+
+2️⃣ Derive anomaly conditions 1
+If [condition], this might be due to [reason].
+
+3️⃣ Derive anomaly conditions 2
+Similarly, [another condition] may suggest [another reason].
+
+Then provide mathematical conditions for anomalies:
+
+📌 Anomaly Condition Examples (always combine **at least two** different features):
+• [Feature_A] > [threshold_A] AND [Feature_B] < [threshold_B] → 🔍 [explanation]
+• [Feature_C] > [threshold_C] AND [Feature_D] / [Feature_E] > [ratio] → 🔍 [explanation]
+• [Feature_F] = [value_F] AND [Feature_G] < [threshold_G] AND [Feature_H] > [threshold_H] → 🔍 [explanation]
+
+📌 Provide 5 anomaly conditions in JSON format, each with a `condition`, `explanation`, and `scenario`:
+
+{
+    "normal_relationships": "Description of typical feature relationships observed in the normal samples",
+    "anomaly_conditions": [
+        {
+            "condition": "mathematical condition (e.g., LB > 200 AND AC < 1)",
+            "explanation": "reason why this combination is anomalous",
+            "scenario": "real-world scenario that could cause this anomaly"
+        }
+    ]
+}

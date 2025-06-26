@@ -1,0 +1,30 @@
+{
+    "normal_relationships": "Signal peptide predictors (McGeoch 0.4–0.65, von Heijne 0.39–0.67) generally align with moderate membrane-span scores (ALOM 0.47–0.66). N-terminal mitochondrial scores stay below 0.7, HDEL is typically 0.5, peroxisomal targeting is usually 0, vacuolar/extracellular scores cluster around 0.48–0.58, and nuclear localization scores remain low (≈0.22–0.34). No single protein carries mutually exclusive targeting signals at high confidence.",
+    "anomaly_conditions": [
+    {
+    "condition": "McGeoch_signal > 0.8 AND ALOM_score < 0.3",
+    "explanation": "A very strong secretory signal with a very weak membrane-span prediction conflicts with expected co-occurrence.",
+    "scenario": "Soluble secretory protein misclassified as membrane-poor despite dominant signal peptide."
+    },
+    {
+    "condition": "Peroxisomal_targeting = 1 AND Nuclear_localization_score > 0.4",
+    "explanation": "Simultaneous high-confidence peroxisomal and nuclear targeting motifs are biologically incompatible.",
+    "scenario": "Fusion protein or annotation error introducing dual and contradictory localization signals."
+    },
+    {
+    "condition": "vonHeijne_signal < 0.3 AND ALOM_score > 0.8",
+    "explanation": "Strong membrane-span prediction without a signal peptide suggests an internal transmembrane domain misinterpreted as leaderless secretion.",
+    "scenario": "Integral membrane segment in a cytosolic protein erroneously flagged as secretory membrane anchor."
+    },
+    {
+    "condition": "HDEL_presence = 0 AND Vacuolar_score > 0.8",
+    "explanation": "Protein predicted for vacuolar pathway lacks the ER-retention HDEL motif needed for proper trafficking.",
+    "scenario": "Secretory pathway protein missing retention signal, risking misfolding or secretion leak."
+    },
+    {
+    "condition": "Mitochondrial_Nterm_score > 0.8 AND ALOM_score > 0.8",
+    "explanation": "Concurrent high mitochondrial leader and strong membrane-span signal is atypical for yeast mitochondrial proteins.",
+    "scenario": "Chimeric sequence or misannotation combining soluble mitochondrial transit peptide with membrane protein fragment."
+    }
+    ]
+    }

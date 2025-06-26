@@ -1,0 +1,63 @@
+**Respond with valid JSON only — no prose, no bullet points.**  
+Your objective is to predict what combinations of values may indicate a plausible fault or anomaly scenario.
+
+Consider the following dataset description:
+• Dataset: 39_vertebral
+• Total samples: 240 (Normal: 210, Anomaly: 30)
+• Features: 6
+
+Consider the following features:
+pelvic incidence, pelvic tilt, lumbar lordosis angle, sacral slope, pelvic radius, degree spondylolisthesis
+
+Here are examples of normal samples from the dataset:
+
+Normal Sample 1: pelvic incidence is 63.028 , pelvic tilt is 22.553 , lumbar lordosis angle is 39.609 , sacral slope is 40.475 , pelvic radius is 98.673 , degree spondylolisthesis is -0.254
+
+Normal Sample 2: pelvic incidence is 39.057 , pelvic tilt is 10.061 , lumbar lordosis angle is 25.015 , sacral slope is 28.996 , pelvic radius is 114.405 , degree spondylolisthesis is 4.564
+
+Normal Sample 3: pelvic incidence is 68.832 , pelvic tilt is 22.218 , lumbar lordosis angle is 50.092 , sacral slope is 46.614 , pelvic radius is 105.985 , degree spondylolisthesis is -3.53
+
+Normal Sample 4: pelvic incidence is 69.297 , pelvic tilt is 24.653 , lumbar lordosis angle is 44.311 , sacral slope is 44.644 , pelvic radius is 101.868 , degree spondylolisthesis is 11.212
+
+Normal Sample 5: pelvic incidence is 49.713 , pelvic tilt is 9.652 , lumbar lordosis angle is 28.317 , sacral slope is 40.061 , pelvic radius is 108.169 , degree spondylolisthesis is 7.919
+
+Normal Sample 6: pelvic incidence is 40.25 , pelvic tilt is 13.922 , lumbar lordosis angle is 25.125 , sacral slope is 26.328 , pelvic radius is 130.328 , degree spondylolisthesis is 2.231
+
+Normal Sample 7: pelvic incidence is 53.433 , pelvic tilt is 15.864 , lumbar lordosis angle is 37.166 , sacral slope is 37.569 , pelvic radius is 120.568 , degree spondylolisthesis is 5.989
+
+Normal Sample 8: pelvic incidence is 45.367 , pelvic tilt is 10.756 , lumbar lordosis angle is 29.038 , sacral slope is 34.611 , pelvic radius is 117.27 , degree spondylolisthesis is -10.676
+
+Normal Sample 9: pelvic incidence is 43.79 , pelvic tilt is 13.534 , lumbar lordosis angle is 42.691 , sacral slope is 30.256 , pelvic radius is 125.003 , degree spondylolisthesis is 13.289
+
+Normal Sample 10: pelvic incidence is 36.686 , pelvic tilt is 5.011 , lumbar lordosis angle is 41.949 , sacral slope is 31.675 , pelvic radius is 84.241 , degree spondylolisthesis is 0.664
+
+Based on these 10 normal examples, explain step-by-step what would constitute realistic anomaly patterns:
+
+1️⃣ Identify typical feature relationships
+Normally, [describe typical relationships between features based on the examples above]
+
+2️⃣ Derive anomaly conditions 1
+If [condition], this might be due to [reason].
+
+3️⃣ Derive anomaly conditions 2
+Similarly, [another condition] may suggest [another reason].
+
+Then provide mathematical conditions for anomalies:
+
+📌 Anomaly Condition Examples (always combine **at least two** different features):
+• [Feature_A] > [threshold_A] AND [Feature_B] < [threshold_B] → 🔍 [explanation]
+• [Feature_C] > [threshold_C] AND [Feature_D] / [Feature_E] > [ratio] → 🔍 [explanation]
+• [Feature_F] = [value_F] AND [Feature_G] < [threshold_G] AND [Feature_H] > [threshold_H] → 🔍 [explanation]
+
+📌 Provide 5 anomaly conditions in JSON format, each with a `condition`, `explanation`, and `scenario`:
+
+{
+    "normal_relationships": "Description of typical feature relationships observed in the normal samples",
+    "anomaly_conditions": [
+        {
+            "condition": "mathematical condition (e.g., LB > 200 AND AC < 1)",
+            "explanation": "reason why this combination is anomalous",
+            "scenario": "real-world scenario that could cause this anomaly"
+        }
+    ]
+}

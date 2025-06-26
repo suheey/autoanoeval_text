@@ -1,0 +1,30 @@
+{
+    "normal_relationships": "Baseline heart rate (LB) remains in a narrow 130–135 bpm band and closely matches Mode and Mean; accelerations (AC) typically range from 2 to 7 per record; short-term variability is moderate (ASTV 16–28 %, MSTV 1.4–2.4 bpm); abnormal long-term variability (ALTV) is absent and severe decelerations (DS) are 0; overall variability (Variance) is at least 7; histogram Width is generally 66 bpm or wider, and light decelerations (DL) stay below 12.",
+    "anomaly_conditions": [
+    {
+    "condition": "AC > 6 AND FM > 20",
+    "explanation": "An abnormally high number of accelerations together with excessive fetal movements can indicate fetal distress or other complications.",
+    "scenario": "Fetus in distress shows heightened movement and frequent accelerations."
+    },
+    {
+    "condition": "ASTV < 10 AND MSTV > 5",
+    "explanation": "Very low short-term variability combined with an unusually high mean short-term variability suggests inconsistent heart-rate modulation, implying possible cardiac issues.",
+    "scenario": "Underlying fetal cardiac irregularities create contradictory variability metrics."
+    },
+    {
+    "condition": "ALTV > 10 AND MLTV > 30",
+    "explanation": "Elevated long-term variability values point to abnormal, large-scale fluctuations in heart rate, often linked to fetal or maternal complications.",
+    "scenario": "Maternal condition or fetal heart disorder causes pronounced long-term oscillations."
+    },
+    {
+    "condition": "Nmax > 30 AND Nzeros > 10",
+    "explanation": "A very high count of histogram peaks together with many zero-count bins indicates an irregular heart-rate distribution.",
+    "scenario": "Frequent, irregular shifts in fetal heart rate create a fragmented histogram."
+    },
+    {
+    "condition": "Variance > 30 AND Tendency != 1 AND Tendency != 2",
+    "explanation": "Extremely high beat-to-beat variance coupled with an atypical tendency code reflects erratic heart-rate patterns suggesting distress.",
+    "scenario": "Fetal stress leads to wildly fluctuating heart rates outside normal tendency classifications."
+    }
+    ]
+    }

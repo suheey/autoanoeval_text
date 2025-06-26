@@ -12,3 +12,4 @@ class BaseAnomalyGenerator(ABC):
     def generate_anomalies(self, X, y, **kwargs):
         """이상치 생성 추상 메서드"""
         pass
+    

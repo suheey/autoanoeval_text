@@ -1,0 +1,30 @@
+{
+    "normal_relationships": "Most adults with higher education (≥16) either report substantial wages or many weeks worked, while younger individuals (<16) and retirees (age >65) show wage per hour = 0 and weeks worked = 0. Capital gains, losses, and dividends are typically zero unless weeks worked > 0 or education is high. Tax filer status 4 usually coincides with zero gains. Wage per hour rarely exceeds 1000 and, if high, usually pairs with weeks worked = 52 and self-employment = 2.",
+    "anomaly_conditions": [
+    {
+    "condition": "wage per hour > 500 AND weeks worked in year = 0",
+    "explanation": "High hourly wage without any weeks worked suggests misreported employment data.",
+    "scenario": "Data entry error recording a lucrative wage for an individual who actually did not work that year."
+    },
+    {
+    "condition": "age < 16 AND weeks worked in year > 0",
+    "explanation": "Minor children normally do not report full-year employment.",
+    "scenario": "Illicit child labor or misclassified age value."
+    },
+    {
+    "condition": "capital gains > 0 AND tax filer stat = 4",
+    "explanation": "Significant investment income should not coincide with a non-filer tax status.",
+    "scenario": "Unreported investment income or miscoded tax filing category."
+    },
+    {
+    "condition": "education = 0 AND wage per hour > 1000",
+    "explanation": "Individuals without formal education rarely earn extremely high hourly wages.",
+    "scenario": "Outlier wage entry or misrecorded education level."
+    },
+    {
+    "condition": "own business or self employed = 0 AND wage per hour = 0 AND weeks worked in year = 52",
+    "explanation": "Reporting a full work year with no pay and no self-employment contradicts normal labor patterns.",
+    "scenario": "Unpaid labor misreported as full employment or erroneous weeks-worked value."
+    }
+    ]
+    }

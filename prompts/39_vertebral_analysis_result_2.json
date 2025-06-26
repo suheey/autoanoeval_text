@@ -1,0 +1,15 @@
+{
+    "normal_relationships": "Pelvic incidence approximately equals pelvic tilt plus sacral slope (difference usually <10°). Incidence ranges 36–70°, tilt 5–25°, sacral slope 26–46°, and lumbar lordosis angle correlates with incidence (25–50°). Pelvic radius lies 84–130 mm. Degree spondylolisthesis typically stays between −11 % and +13 %.",
+    "anomaly_conditions": [
+    {
+    "condition": "abs(pelvic incidence - (pelvic tilt + sacral slope)) > 10",
+    "explanation": "Large mismatch between pelvic incidence and the sum of tilt and slope violates the anatomical constraint, indicating measurement error or severe pelvic imbalance.",
+    "scenario": "Imaging artifact or structural deformity causing inconsistent angular metrics."
+    },
+    {
+    "condition": "degree spondylolisthesis > 20 AND pelvic incidence < 40",
+    "explanation": "High vertebral slip combined with a low pelvic incidence is atypical and suggests advanced degenerative spondylolisthesis with compromised pelvic alignment.",
+    "scenario": "Progressive anterior slippage occurring in patients with naturally flat pelvic orientation."
+    }
+    ]
+}

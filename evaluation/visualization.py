@@ -358,83 +358,6 @@ def plot_validation_test_correlation(summary_df, results_dir):
     plt.close()
     print(f"📊 검증-테스트 상관관계 그래프가 {filename}에 저장되었습니다")
 
-def plot_llm_vs_statistical_comparison(best_models, evaluation_metrics, results_dir):
-    """
-    LLM 패턴 vs 통계적 방법들 성능 비교 시각화
-    """
-    if 'llm_patterns' not in best_models:
-        print("⚠️ LLM 패턴 결과가 없어 비교 시각화를 건너뜁니다.")
-        return
-    
-    # LLM vs 통계적 방법들 분리
-    llm_info = best_models['llm_patterns']
-    statistical_methods = {k: v for k, v in best_models.items() 
-                          if k.startswith('synthetic_') and k != 'llm_patterns'}
-    
-    if not statistical_methods:
-        print("⚠️ 통계적 방법 결과가 없어 비교 시각화를 건너뜁니다.")
-        return
-    
-    fig, axes = plt.subplots(1, 2, figsize=(16, 8))
-    
-    # 1. Test AUC 비교
-    methods = ['LLM Patterns'] + [convert_validation_labels([k])[0] for k in statistical_methods.keys()]
-    test_aucs = [llm_info['test_auc']] + [v['test_auc'] for v in statistical_methods.values()]
-    
-    colors = ['darkviolet'] + [get_validation_colors().get(k, 'gray') for k in statistical_methods.keys()]
-    
-    bars = axes[0].bar(methods, test_aucs, color=colors, alpha=0.8, edgecolor='black')
-    axes[0].set_title('🏆 Test AUC: LLM vs Statistical Methods', fontsize=13, fontweight='bold')
-    axes[0].set_ylabel('Test AUC', fontsize=11)
-    axes[0].tick_params(axis='x', rotation=45)
-    axes[0].grid(True, alpha=0.3, linestyle=':')
-    
-    # 수치 표시
-    for bar, value in zip(bars, test_aucs):
-        height = bar.get_height()
-        axes[0].text(bar.get_x() + bar.get_width()/2., height + 0.01,
-                    f'{value:.3f}', ha='center', va='bottom', 
-                    fontsize=9, fontweight='bold')
-    
-    # 2. Rank Correlation 비교 (evaluation_metrics에서)
-    if evaluation_metrics and 'llm_patterns' in evaluation_metrics:
-        llm_corr = evaluation_metrics['llm_patterns']['rank_correlation']
-        stat_methods_eval = {k: v for k, v in evaluation_metrics.items() 
-                           if k.startswith('synthetic_') and k != 'llm_patterns'}
-        
-        methods_corr = ['LLM Patterns'] + [convert_validation_labels([k])[0] for k in stat_methods_eval.keys()]
-        correlations = [llm_corr] + [v['rank_correlation'] for v in stat_methods_eval.values()]
-        
-        colors_corr = ['darkviolet'] + [get_validation_colors().get(k, 'gray') for k in stat_methods_eval.keys()]
-        
-        bars2 = axes[1].bar(methods_corr, correlations, color=colors_corr, alpha=0.8, edgecolor='black')
-        axes[1].set_title('📊 Rank Correlation with GT: LLM vs Statistical', fontsize=13, fontweight='bold')
-        axes[1].set_ylabel('Rank Correlation', fontsize=11)
-        axes[1].tick_params(axis='x', rotation=45)
-        axes[1].grid(True, alpha=0.3, linestyle=':')
-        axes[1].set_ylim(0, 1.1)
-        
-        # 수치 표시
-        for bar, value in zip(bars2, correlations):
-            height = bar.get_height()
-            axes[1].text(bar.get_x() + bar.get_width()/2., height + 0.02,
-                        f'{value:.3f}', ha='center', va='bottom', 
-                        fontsize=9, fontweight='bold')
-    else:
-        axes[1].text(0.5, 0.5, 'No Correlation Data', ha='center', va='center', 
-                    transform=axes[1].transAxes, fontsize=12)
-        axes[1].set_title('📊 Rank Correlation with GT', fontsize=13, fontweight='bold')
-    
-    plt.suptitle('🤖 LLM Patterns vs Statistical Methods Comparison', 
-                 fontsize=16, fontweight='bold', y=0.98)
-    plt.tight_layout()
-    
-    # 저장
-    filename = os.path.join(results_dir, 'llm_vs_statistical_comparison.png')
-    plt.savefig(filename, dpi=300, bbox_inches='tight')
-    plt.close()
-    print(f"🤖 LLM vs 통계적 방법 비교 시각화가 {filename}에 저장되었습니다")
-
 def create_experiment_visualizations(best_models, evaluation_metrics, summary_df, results_dir):
     """
     실험의 모든 핵심 시각화를 생성 (LLM 지원)
@@ -459,9 +382,6 @@ def create_experiment_visualizations(best_models, evaluation_metrics, summary_df
     else:
         print("⚠️ 요약 데이터가 없어 상관관계 시각화를 건너뜁니다.")
     
-    # 4. LLM vs 통계적 방법 비교 (새로 추가)
-    if best_models and 'llm_patterns' in best_models:
-        plot_llm_vs_statistical_comparison(best_models, evaluation_metrics, results_dir)
     
     print(f"✅ 모든 핵심 시각화 완료 (LLM 패턴 포함)!")
     print(f"📁 시각화 파일들이 {results_dir}에 저장되었습니다")
@@ -469,5 +389,5 @@ def create_experiment_visualizations(best_models, evaluation_metrics, summary_df
     print(f"   - core_performance_metrics.png")
     print(f"   - best_model_test_performance.png")
     print(f"   - validation_test_correlation.png")
-    if 'llm_patterns' in best_models:
-        print(f"   - llm_vs_statistical_comparison.png")
+    print(f"   - tsne_anomaly_comparison.png")
+    print(f"   - tsne_*_detailed.png (개별 anomaly 타입별)")

@@ -1,0 +1,15 @@
+{
+    "normal_relationships": "Secretory signal predictors (McGeoch 0.4–0.65, von Heijne 0.39–0.67) tend to coincide with moderate ALOM membrane scores (≈0.45–0.66). Mitochondrial N-terminal scores remain below 0.7, HDEL is typically present at 0.5, peroxisomal signals are mostly 0 (occasionally 0.5), vacuolar scores cluster around 0.48–0.58, and nuclear localization scores stay low (≈0.22–0.34). High-confidence conflicting targeting motifs do not co-occur in normal proteins.",
+    "anomaly_conditions": [
+    {
+    "condition": "Peroxisomal_signal >= 0.5 AND Nuclear_localization_score > 0.4",
+    "explanation": "Strong peroxisomal targeting together with a high nuclear localization score represents mutually exclusive destination signals.",
+    "scenario": "Chimeric or misannotated protein containing both peroxisomal and nuclear localization motifs."
+    },
+    {
+    "condition": "McGeoch_signal > 0.8 AND ALOM_score < 0.3",
+    "explanation": "A very strong secretory peptide prediction without corresponding membrane-span propensity contradicts expected co-occurrence.",
+    "scenario": "Soluble secretory protein erroneously predicted as lacking membrane association or measured with corrupted sequence data."
+    }
+    ]
+    }

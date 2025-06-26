@@ -1,0 +1,15 @@
+{
+    "normal_relationships": "Baseline heart rate (LB) clusters around 130–135 bpm and matches Mode and Mean; accelerations (AC) are usually 2–7 per 2 s window; short-term variability is moderate (ASTV 16–28 %, MSTV 1.4–2.4 bpm); abnormal long-term variability (ALTV) equals 0 and severe decelerations (DS) are absent; beat-to-beat Variance is ≥7 and histogram Width is typically ≥66 bpm. The extra field prompt is simply an identifier and shows no physiological correlation.",
+    "anomaly_conditions": [
+    {
+    "condition": "LB > 160 AND AC < 2",
+    "explanation": "Sustained tachycardia without compensatory accelerations signals possible fetal hypoxia or maternal fever.",
+    "scenario": "Maternal infection elevating fetal heart rate while fetal reactivity is blunted."
+    },
+    {
+    "condition": "DS >= 1 AND ASTV < 10",
+    "explanation": "Presence of severe decelerations together with very low short-term variability indicates acute fetal distress.",
+    "scenario": "Umbilical cord compression producing abrupt heart-rate drops and dampened variability."
+    }
+    ]
+    }

@@ -1,0 +1,30 @@
+{
+    "normal_relationships": "Pelvic incidence closely equals the sum of pelvic tilt and sacral slope (incidence ≈ tilt + slope). Pelvic incidence typically ranges 40–70°, pelvic tilt 5–25°, sacral slope 25–45°, and lumbar lordosis angle aligns moderately (25–50°). Pelvic radius stays between 90–130 mm, and degree spondylolisthesis remains near zero (≈ −10 to +15%).",
+    "anomaly_conditions": [
+    {
+    "condition": "abs(pelvic incidence - (pelvic tilt + sacral slope)) > 10",
+    "explanation": "A large mismatch between pelvic incidence and the sum of tilt and slope violates the anatomical relationship, suggesting severe pelvic imbalance or measurement error.",
+    "scenario": "Imaging artifact or structural deformity causing inconsistent angular metrics."
+    },
+    {
+    "condition": "degree spondylolisthesis > 20 AND pelvic incidence > 70",
+    "explanation": "High slip percentage combined with very large pelvic incidence indicates advanced spondylolisthesis with compensatory pelvic retroversion.",
+    "scenario": "Progressive vertebral slippage in high-grade spondylolisthesis."
+    },
+    {
+    "condition": "pelvic radius < 80 AND lumbar lordosis angle > 50",
+    "explanation": "An unusually small pelvic radius paired with excessive lordosis suggests hyperlordotic curvature and possible congenital malformation.",
+    "scenario": "Congenital short pelvis with exaggerated lumbar curve."
+    },
+    {
+    "condition": "pelvic tilt > 30 AND sacral slope < 20",
+    "explanation": "Excessive posterior pelvic tilt while the sacrum remains relatively horizontal reflects sagittal imbalance.",
+    "scenario": "Compensatory hip flexion in spinal kyphosis."
+    },
+    {
+    "condition": "pelvic incidence < 35 AND lumbar lordosis angle > 45",
+    "explanation": "Low anatomical incidence cannot normally support a deep lumbar curve, indicating pathological lordosis.",
+    "scenario": "Postural hyperlordosis or spinal muscle imbalance overriding pelvic geometry."
+    }
+    ]
+    }

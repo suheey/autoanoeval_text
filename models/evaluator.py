@@ -39,7 +39,7 @@ def get_default_models():
 
 def prepare_data(X_normal_train, X_val_real, X_test, synthetic_val_sets):
     """
-    데이터 표준화 수행
+    데이터 표준화 수행 (개선된 버전)
     
     Parameters:
     - X_normal_train: 학습용 정상 데이터
@@ -50,16 +50,21 @@ def prepare_data(X_normal_train, X_val_real, X_test, synthetic_val_sets):
     Returns:
     - tuple: 표준화된 데이터들
     """
+    from data.preprocessor import Preprocessor
+    
+    # Preprocessor 인스턴스 생성
+    preprocessor = Preprocessor(scaling_type="standard")
+    
     # 데이터 표준화
-    scaler = StandardScaler()
-    X_normal_train_scaled = scaler.fit_transform(X_normal_train)
-    X_val_real_scaled = scaler.transform(X_val_real)
-    X_test_scaled = scaler.transform(X_test)
+    X_normal_train_scaled, X_val_real_scaled, X_test_scaled, scaler = preprocessor.apply_standard_scaling(
+        X_normal_train, X_val_real, X_test
+    )
     
     # 합성 이상치 데이터 표준화
     synthetic_val_sets_scaled = {}
     for anomaly_type, (X_val, y_val) in synthetic_val_sets.items():
-        synthetic_val_sets_scaled[anomaly_type] = (scaler.transform(X_val), y_val)
+        X_val_scaled = scaler.transform(X_val)
+        synthetic_val_sets_scaled[anomaly_type] = (X_val_scaled, y_val)
     
     return X_normal_train_scaled, X_val_real_scaled, X_test_scaled, synthetic_val_sets_scaled
 

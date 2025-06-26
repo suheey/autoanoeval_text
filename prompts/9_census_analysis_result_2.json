@@ -1,0 +1,15 @@
+{
+    "normal_relationships": "Children (<16) and retirees (>65) typically show wage per hour = 0, weeks worked in year = 0, and zero capital gains. Adults with very high wages (>500) normally report full-year employment (52 weeks) and often self-employment. Positive capital gains generally occur with non-zero weeks worked and a tax filer status other than 4 (non-filer).",
+    "anomaly_conditions": [
+    {
+    "condition": "wage per hour > 500 AND weeks worked in year = 0",
+    "explanation": "A lucrative hourly wage without any recorded weeks worked conflicts with normal earning patterns.",
+    "scenario": "Data entry error assigning executive-level pay to an individual who reported no employment."
+    },
+    {
+    "condition": "age < 16 AND weeks worked in year > 0",
+    "explanation": "Minors are not expected to report significant annual employment duration.",
+    "scenario": "Illicit child labor or misrecorded age/working-weeks information."
+    }
+    ]
+    }
